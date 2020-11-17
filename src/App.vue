@@ -1,29 +1,29 @@
 <template>
   <div id="app">
-    <Topbar/>
+    <Topbar />
     <router-view id="content-wrapper" class="d-flex flex-column" />
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
 <script>
-  import Topbar from '@/components/Template/Topbar.vue'
-  import Footer from '@/components/Template/Footer.vue'
+import Topbar from "@/components/Template/Topbar.vue";
+import Footer from "@/components/Template/Footer.vue";
 
-  export default {
-    name: 'App',
-    components: {
-      Topbar,
-      Footer
-    }
-}
+export default {
+  name: "App",
+  components: {
+    Topbar,
+    Footer,
+  },
+};
 </script>
 
 <style>
 #content-wrapper {
-    background-color: #000000;
-    height: 100vh;
-    width: 100%;
-    overflow-x: hidden;
+  background-color: #000000;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 </style>
