@@ -17,7 +17,7 @@ var (
 )
 
 func main() {
-	db.Get()
+	db.Init()
 
 	if os.Getenv("PORT") != "" {
 		port = fmt.Sprintf(":%s", os.Getenv("PORT"))
