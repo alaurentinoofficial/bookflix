@@ -13,6 +13,7 @@ type Book struct {
 	Author    string    `json:"author,omitempty" validate:"required,min=4"`
 	Resume    string    `json:"resume,omitempty" validate:"required,min=20"`
 	Rating    float32   `json:"rating,omitempty"`
+	ImageUrl  string    `json:"image_url" validate:"required,url"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"update_at,omitempty"`
 
