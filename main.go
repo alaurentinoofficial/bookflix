@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"ng-book-service/db"
 	"ng-book-service/proto"
 	"ng-book-service/services"
 	"os"
@@ -16,6 +17,7 @@ var (
 )
 
 func main() {
+	db.Get()
 
 	if os.Getenv("PORT") != "" {
 		port = fmt.Sprintf(":%s", os.Getenv("PORT"))
