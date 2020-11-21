@@ -23,9 +23,9 @@ go run main.go
 
 #### Docker build and send to docker hub
 ```sh
-docker build -t ng-book-service .
-docker tag ng-book-service:latest alaurentino/ng-book-service:latest
-docker push alaurentino/ng-book-service:latest
+docker build -t ng-auth-service .
+docker tag ng-auth-service:latest alaurentino/ng-auth-service:latest
+docker push alaurentino/ng-auth-service:latest
 ```
 
 #### Deploy to kubernetes
