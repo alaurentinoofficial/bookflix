@@ -44,61 +44,61 @@ func TestInsert(t *testing.T) {
 	fmt.Println(response)
 }
 
-// func TestGet(t *testing.T) {
-// 	var conn *grpc.ClientConn
-// 	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+func TestGet(t *testing.T) {
+	var conn *grpc.ClientConn
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
-// 	if err != nil {
-// 		t.Errorf("did not connect: %s", err)
-// 	}
-// 	defer conn.Close()
+	if err != nil {
+		t.Errorf("did not connect: %s", err)
+	}
+	defer conn.Close()
 
-// 	c := proto.NewBookServiceClient(conn)
+	c := proto.NewBookServiceClient(conn)
 
-// 	response, err := c.Get(context.Background(), &proto.Empty{})
-// 	if err != nil {
-// 		t.Errorf("Error to connect and get data")
-// 	}
+	response, err := c.Get(context.Background(), &proto.Empty{})
+	if err != nil {
+		t.Errorf("Error to connect and get data")
+	}
 
-// 	book = *response.Books[0]
-// }
+	book = *response.Books[0]
+}
 
-// func TestUpdate(t *testing.T) {
-// 	var conn *grpc.ClientConn
-// 	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+func TestUpdate(t *testing.T) {
+	var conn *grpc.ClientConn
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
-// 	if err != nil {
-// 		t.Errorf("did not connect: %s", err)
-// 	}
-// 	defer conn.Close()
+	if err != nil {
+		t.Errorf("did not connect: %s", err)
+	}
+	defer conn.Close()
 
-// 	c := proto.NewBookServiceClient(conn)
+	c := proto.NewBookServiceClient(conn)
 
-// 	book.Title = "The drunkard's walk"
+	book.Title = "The drunkard's walk"
 
-// 	response, err := c.Update(context.Background(), &proto.Book{Id: book.Id, Title: "The drunkard's walk"})
-// 	if err != nil {
-// 		t.Errorf("Error to connect and get data")
-// 	}
+	response, err := c.Update(context.Background(), &proto.Book{Id: book.Id, Title: "The drunkard's walk"})
+	if err != nil {
+		t.Errorf("Error to connect and get data")
+	}
 
-// 	fmt.Println(response)
-// }
+	fmt.Println(response)
+}
 
-// func TestDelete(t *testing.T) {
-// 	var conn *grpc.ClientConn
-// 	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+func TestDelete(t *testing.T) {
+	var conn *grpc.ClientConn
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
-// 	if err != nil {
-// 		t.Errorf("did not connect: %s", err)
-// 	}
-// 	defer conn.Close()
+	if err != nil {
+		t.Errorf("did not connect: %s", err)
+	}
+	defer conn.Close()
 
-// 	c := proto.NewBookServiceClient(conn)
+	c := proto.NewBookServiceClient(conn)
 
-// 	response, err := c.Delete(context.Background(), &proto.Id{Id: book.Id})
-// 	if err != nil {
-// 		t.Errorf("Error to connect and get data")
-// 	}
+	response, err := c.Delete(context.Background(), &proto.Id{Id: book.Id})
+	if err != nil {
+		t.Errorf("Error to connect and get data")
+	}
 
-// 	fmt.Println(response)
-// }
+	fmt.Println(response)
+}

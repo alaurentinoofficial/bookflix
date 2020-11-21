@@ -14,6 +14,12 @@ message Status {
 message Category {
   string id = 1;
   string name = 2;
+  string created_at = 3;
+  string updated_at = 4;
+}
+
+message Categories {
+  repeated Category categories = 1;
 }
 
 message Book {
@@ -37,5 +43,13 @@ service BookService {
   rpc GetById(Id) returns (Book) {}
   rpc Insert(Book) returns (Status) {}
   rpc Update(Book) returns (Status) {}
+  rpc Delete(Id) returns (Status) {}
+}
+
+service CategoryService {
+  rpc Get (Empty) returns (Categories) {}
+  rpc GetById(Id) returns (Category) {}
+  rpc Insert(Category) returns (Status) {}
+  rpc Update(Category) returns (Status) {}
   rpc Delete(Id) returns (Status) {}
 }
