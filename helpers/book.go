@@ -38,7 +38,7 @@ func (book) FromProtoToModel(book *proto.Book) (*models.Book, error) {
 	categories := []models.Category{}
 
 	for _, obj := range book.Categories {
-		uu, err := uuid.FromString(book.Id)
+		uu, err := uuid.FromString(obj.Id)
 
 		if err != nil {
 			return nil, err

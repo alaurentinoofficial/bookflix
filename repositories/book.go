@@ -10,7 +10,7 @@ type bookRepository struct{}
 func (this *bookRepository) Get() (*[]models.Book, error) {
 	result := []models.Book{}
 
-	if err := db.Get().Find(&result).Error; err != nil {
+	if err := db.Get().Preload("Categories").Find(&result).Error; err != nil {
 		return nil, err
 	}
 
@@ -20,7 +20,7 @@ func (this *bookRepository) Get() (*[]models.Book, error) {
 func (this *bookRepository) GetById(id string) (*models.Book, error) {
 	result := models.Book{}
 
-	if err := db.Get().Where("id = ?", id).First(&result).Error; err != nil {
+	if err := db.Get().Preload("Categories").Where("id = ?", id).First(&result).Error; err != nil {
 		return nil, err
 	}
 
@@ -28,7 +28,15 @@ func (this *bookRepository) GetById(id string) (*models.Book, error) {
 }
 
 func (this *bookRepository) Insert(book models.Book) (*models.Book, error) {
+	categories := book.Categories
+	book.Categories = []models.Category{}
+
 	if err := db.Get().Create(&book).Error; err != nil {
+		return nil, err
+	}
+
+	if err := db.Get().Model(&book).Association("categories").Replace(categories).Error; err != nil {
+		this.Delete(book.Id.String())
 		return nil, err
 	}
 
