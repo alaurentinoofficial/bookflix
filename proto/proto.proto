@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+message Empty {}
+
+message Id {
+  string id = 1;
+}
+
+message Login {
+  string email = 1;
+  string password = 2;
+}
+
+message Status {
+  int32 code = 1;
+  string message = 2;
+}
+
+message UpdateAccount {
+  string name = 1;
+}
+
+message CreateAccount {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message ResponseAccount {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string profile = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+service AccountService {
+  rpc Auth(Login) returns (Status) {}
+  rpc GetById(Id) returns (ResponseAccount) {}
+  rpc Insert(CreateAccount) returns (Status) {}
+  // rpc Update(UpdateAccount) returns (Status) {}
+  rpc Delete(Id) returns (Status) {}
+}
