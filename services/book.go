@@ -53,13 +53,37 @@ func (s *BookService) GetById(ctx context.Context, in *proto.Id) (*proto.Book, e
 func (s *BookService) Insert(ctx context.Context, in *proto.Book) (*proto.Status, error) {
 	log.Println("[*] Insert")
 
-	return &proto.Status{}, nil
+	book, err := helpers.Book.FromProtoToModel(in)
+
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = repositories.Book.Insert(*book)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &proto.Status{Code: 0, Message: "Ok"}, nil
 }
 
 func (s *BookService) Update(ctx context.Context, in *proto.Book) (*proto.Status, error) {
 	log.Println("[*] Insert")
 
-	return &proto.Status{}, nil
+	book, err := helpers.Book.FromProtoToModel(in)
+
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = repositories.Book.Update(*book)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &proto.Status{Code: 0, Message: "Ok"}, nil
 }
 
 func (s *BookService) Delete(ctx context.Context, in *proto.Id) (*proto.Status, error) {

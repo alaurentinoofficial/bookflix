@@ -50,11 +50,7 @@ func (book) FromProtoToModel(book *proto.Book) (*models.Book, error) {
 		})
 	}
 
-	uu, err := uuid.FromString(book.Id)
-
-	if err != nil {
-		return nil, err
-	}
+	uu, _ := uuid.FromString(book.Id)
 
 	result := models.Book{
 		Id:         uu,

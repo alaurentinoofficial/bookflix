@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 	"log"
-	"ng-bookflix-api/models"
+	"ng-book-service/models"
 	"os"
 
 	"github.com/jinzhu/gorm"
