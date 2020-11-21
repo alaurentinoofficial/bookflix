@@ -89,5 +89,9 @@ func (s *CategoryService) Update(ctx context.Context, in *proto.Category) (*prot
 func (s *CategoryService) Delete(ctx context.Context, in *proto.Id) (*proto.Status, error) {
 	log.Println("[*] [CategoryService] Delete")
 
+	if _, err := repositories.Category.Delete(in.Id); err != nil {
+		return nil, err
+	}
+
 	return &proto.Status{}, nil
 }

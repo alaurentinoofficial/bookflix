@@ -466,3 +466,304 @@ var _CategoryService_serviceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "proto.proto",
 }
+
+// ReviewServiceClient is the client API for ReviewService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ReviewServiceClient interface {
+	Get(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Reviews, error)
+	GetByUserId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Reviews, error)
+	GetByBookId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Reviews, error)
+	GetByAccountId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Reviews, error)
+	GetById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Review, error)
+	Insert(ctx context.Context, in *Review, opts ...grpc.CallOption) (*Status, error)
+	// rpc Update(Review) returns (Status) {}
+	Delete(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error)
+}
+
+type reviewServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewReviewServiceClient(cc grpc.ClientConnInterface) ReviewServiceClient {
+	return &reviewServiceClient{cc}
+}
+
+func (c *reviewServiceClient) Get(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Reviews, error) {
+	out := new(Reviews)
+	err := c.cc.Invoke(ctx, "/ReviewService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reviewServiceClient) GetByUserId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Reviews, error) {
+	out := new(Reviews)
+	err := c.cc.Invoke(ctx, "/ReviewService/GetByUserId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reviewServiceClient) GetByBookId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Reviews, error) {
+	out := new(Reviews)
+	err := c.cc.Invoke(ctx, "/ReviewService/GetByBookId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reviewServiceClient) GetByAccountId(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Reviews, error) {
+	out := new(Reviews)
+	err := c.cc.Invoke(ctx, "/ReviewService/GetByAccountId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reviewServiceClient) GetById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Review, error) {
+	out := new(Review)
+	err := c.cc.Invoke(ctx, "/ReviewService/GetById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reviewServiceClient) Insert(ctx context.Context, in *Review, opts ...grpc.CallOption) (*Status, error) {
+	out := new(Status)
+	err := c.cc.Invoke(ctx, "/ReviewService/Insert", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reviewServiceClient) Delete(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error) {
+	out := new(Status)
+	err := c.cc.Invoke(ctx, "/ReviewService/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ReviewServiceServer is the server API for ReviewService service.
+// All implementations must embed UnimplementedReviewServiceServer
+// for forward compatibility
+type ReviewServiceServer interface {
+	Get(context.Context, *Empty) (*Reviews, error)
+	GetByUserId(context.Context, *Id) (*Reviews, error)
+	GetByBookId(context.Context, *Id) (*Reviews, error)
+	GetByAccountId(context.Context, *Id) (*Reviews, error)
+	GetById(context.Context, *Id) (*Review, error)
+	Insert(context.Context, *Review) (*Status, error)
+	// rpc Update(Review) returns (Status) {}
+	Delete(context.Context, *Id) (*Status, error)
+	mustEmbedUnimplementedReviewServiceServer()
+}
+
+// UnimplementedReviewServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedReviewServiceServer struct {
+}
+
+func (UnimplementedReviewServiceServer) Get(context.Context, *Empty) (*Reviews, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedReviewServiceServer) GetByUserId(context.Context, *Id) (*Reviews, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByUserId not implemented")
+}
+func (UnimplementedReviewServiceServer) GetByBookId(context.Context, *Id) (*Reviews, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByBookId not implemented")
+}
+func (UnimplementedReviewServiceServer) GetByAccountId(context.Context, *Id) (*Reviews, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByAccountId not implemented")
+}
+func (UnimplementedReviewServiceServer) GetById(context.Context, *Id) (*Review, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedReviewServiceServer) Insert(context.Context, *Review) (*Status, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
+}
+func (UnimplementedReviewServiceServer) Delete(context.Context, *Id) (*Status, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedReviewServiceServer) mustEmbedUnimplementedReviewServiceServer() {}
+
+// UnsafeReviewServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ReviewServiceServer will
+// result in compilation errors.
+type UnsafeReviewServiceServer interface {
+	mustEmbedUnimplementedReviewServiceServer()
+}
+
+func RegisterReviewServiceServer(s grpc.ServiceRegistrar, srv ReviewServiceServer) {
+	s.RegisterService(&_ReviewService_serviceDesc, srv)
+}
+
+func _ReviewService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ReviewService/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).Get(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReviewService_GetByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).GetByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ReviewService/GetByUserId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).GetByUserId(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReviewService_GetByBookId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).GetByBookId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ReviewService/GetByBookId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).GetByBookId(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReviewService_GetByAccountId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).GetByAccountId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ReviewService/GetByAccountId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).GetByAccountId(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReviewService_GetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).GetById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ReviewService/GetById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).GetById(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReviewService_Insert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Review)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).Insert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ReviewService/Insert",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).Insert(ctx, req.(*Review))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReviewService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReviewServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ReviewService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReviewServiceServer).Delete(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ReviewService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "ReviewService",
+	HandlerType: (*ReviewServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Get",
+			Handler:    _ReviewService_Get_Handler,
+		},
+		{
+			MethodName: "GetByUserId",
+			Handler:    _ReviewService_GetByUserId_Handler,
+		},
+		{
+			MethodName: "GetByBookId",
+			Handler:    _ReviewService_GetByBookId_Handler,
+		},
+		{
+			MethodName: "GetByAccountId",
+			Handler:    _ReviewService_GetByAccountId_Handler,
+		},
+		{
+			MethodName: "GetById",
+			Handler:    _ReviewService_GetById_Handler,
+		},
+		{
+			MethodName: "Insert",
+			Handler:    _ReviewService_Insert_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _ReviewService_Delete_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto.proto",
+}

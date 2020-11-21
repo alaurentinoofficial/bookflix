@@ -19,23 +19,6 @@ var (
 func main() {
 	db.Init()
 
-	// category := models.Category{Name: "Romance"}
-
-	// db.Get().Create(&category)
-
-	// book := models.Book{
-	// 	Title:      "Como Mentir com Estatística",
-	// 	Author:     "Darrel Huff",
-	// 	Resume:     "Como Mentir com Estatística",
-	// 	Rating:     4,
-	// 	ImageUrl:   "http://www.exemplo.com",
-	// 	Categories: []models.Category{models.Category{Id: category.Id}},
-	// }
-
-	// repositories.Book.Insert(book)
-
-	// fmt.Println(book)
-
 	if os.Getenv("PORT") != "" {
 		port = fmt.Sprintf(":%s", os.Getenv("PORT"))
 	}
@@ -47,6 +30,8 @@ func main() {
 
 	s := grpc.NewServer()
 	proto.RegisterBookServiceServer(s, &services.BookService{})
+	proto.RegisterCategoryServiceServer(s, &services.CategoryService{})
+	proto.RegisterReviewServiceServer(s, &services.ReviewService{})
 
 	log.Println("[*] Listening in", port)
 

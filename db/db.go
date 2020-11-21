@@ -38,8 +38,9 @@ func Init() {
 
 	db = conn
 
-	db.DropTableIfExists("book_categories", &models.Category{}, &models.Book{})
-	db.AutoMigrate(&models.Category{}, &models.Book{})
+	db.DropTableIfExists("book_categories", &models.Review{}, &models.Category{}, &models.Book{})
+	db.AutoMigrate(&models.Review{}, &models.Category{}, &models.Book{})
+	db.Model(&models.Review{}).AddForeignKey("book_id", "books(id)", "CASCADE", "CASCADE")
 	db.Table("book_categories").AddForeignKey("book_id", "books(id)", "CASCADE", "CASCADE")
 	db.Table("book_categories").AddForeignKey("category_id", "categories(id)", "CASCADE", "CASCADE")
 }

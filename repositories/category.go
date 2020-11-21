@@ -10,7 +10,7 @@ type categoryRepository struct{}
 func (this *categoryRepository) Get() (*[]models.Category, error) {
 	result := []models.Category{}
 
-	if err := db.Get().Preload("Categories").Find(&result).Error; err != nil {
+	if err := db.Get().Find(&result).Error; err != nil {
 		return nil, err
 	}
 
@@ -20,7 +20,7 @@ func (this *categoryRepository) Get() (*[]models.Category, error) {
 func (this *categoryRepository) GetById(id string) (*models.Category, error) {
 	result := models.Category{}
 
-	if err := db.Get().Preload("Categories").Where("id = ?", id).First(&result).Error; err != nil {
+	if err := db.Get().Where("id = ?", id).First(&result).Error; err != nil {
 		return nil, err
 	}
 

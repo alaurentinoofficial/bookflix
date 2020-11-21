@@ -38,6 +38,21 @@ message Books {
   repeated Book books = 1;
 }
 
+message Review {
+  string id = 1;
+  float rating = 2;
+  float pos_neg_rating = 3;
+  string resume = 4;
+  string book_id = 5;
+  string account_id = 6;
+  string created_at = 7;
+  string updated_at = 8;
+}
+
+message Reviews {
+  repeated Review Reviews = 1;
+}
+
 service BookService {
   rpc Get (Empty) returns (Books) {}
   rpc GetById(Id) returns (Book) {}
@@ -51,5 +66,16 @@ service CategoryService {
   rpc GetById(Id) returns (Category) {}
   rpc Insert(Category) returns (Status) {}
   rpc Update(Category) returns (Status) {}
+  rpc Delete(Id) returns (Status) {}
+}
+
+service ReviewService {
+  rpc Get (Empty) returns (Reviews) {}
+  rpc GetByUserId (Id) returns (Reviews) {}
+  rpc GetByBookId (Id) returns (Reviews) {}
+  rpc GetByAccountId (Id) returns (Reviews) {}
+  rpc GetById(Id) returns (Review) {}
+  rpc Insert(Review) returns (Status) {}
+  // rpc Update(Review) returns (Status) {}
   rpc Delete(Id) returns (Status) {}
 }

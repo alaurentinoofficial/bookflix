@@ -18,6 +18,7 @@ type Book struct {
 	UpdatedAt time.Time `json:"update_at,omitempty"`
 
 	Categories []Category `gorm:"many2many:book_categories;"`
+	Reviews    []Review   `gorm:"foreignKey:BookId;references:BookId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;not null"`
 }
 
 func (this *Book) BeforeCreate(scope *gorm.Scope) error {
