@@ -69,7 +69,7 @@ func (s *BookService) Insert(ctx context.Context, in *proto.Book) (*proto.Status
 }
 
 func (s *BookService) Update(ctx context.Context, in *proto.Book) (*proto.Status, error) {
-	log.Println("[*] Insert")
+	log.Println("[*] Update")
 
 	book, err := helpers.Book.FromProtoToModel(in)
 
@@ -87,7 +87,7 @@ func (s *BookService) Update(ctx context.Context, in *proto.Book) (*proto.Status
 }
 
 func (s *BookService) Delete(ctx context.Context, in *proto.Id) (*proto.Status, error) {
-	log.Println("[*] Insert")
+	log.Println("[*] Delete")
 
 	return &proto.Status{}, nil
 }
