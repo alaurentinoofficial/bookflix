@@ -20,3 +20,15 @@ go test -v ./...
 ```sh
 go run main.go
 ```
+
+#### Docker build and send to docker hub
+```sh
+docker build -t ng-book-service .
+docker tag ng-book-service:latest alaurentino/ng-book-service:latest
+docker push alaurentino/ng-book-service:latest
+```
+
+#### Deploy to kubernetes
+```sh
+kubectl apply -f .\kube-dev.yaml
+```

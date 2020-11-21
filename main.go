@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	port = ":50051"
+	port = ":9000"
 )
 
 func main() {
