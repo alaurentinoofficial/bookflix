@@ -3,6 +3,9 @@ package repositories
 import (
 	"ng-auth-service/db"
 	"ng-auth-service/models"
+
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type accountRepository struct{}
@@ -38,6 +41,16 @@ func (this *accountRepository) GetById(id string) (*models.Account, error) {
 }
 
 func (this *accountRepository) Insert(account models.Account) (*models.Account, error) {
+	count := 0
+
+	if err := db.Get().Table("accounts").Where("email = ?", account.Email).Count(&count).Error; err != nil {
+		return nil, err
+	}
+
+	if count > 0 {
+		return nil, status.Error(codes.AlreadyExists, "Email already exists!")
+	}
+
 	if err := db.Get().Create(&account).Error; err != nil {
 		return nil, err
 	}

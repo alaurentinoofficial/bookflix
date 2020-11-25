@@ -18,9 +18,10 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountServiceClient interface {
 	Auth(ctx context.Context, in *Login, opts ...grpc.CallOption) (*Status, error)
+	Get(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ResponseAccounts, error)
 	GetById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*ResponseAccount, error)
 	Insert(ctx context.Context, in *CreateAccount, opts ...grpc.CallOption) (*Status, error)
-	Update(ctx context.Context, in *UpdateAccount, opts ...grpc.CallOption) (*Status, error)
+	// rpc Update(UpdateAccount) returns (Status) {}
 	Delete(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error)
 }
 
@@ -35,6 +36,15 @@ func NewAccountServiceClient(cc grpc.ClientConnInterface) AccountServiceClient {
 func (c *accountServiceClient) Auth(ctx context.Context, in *Login, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, "/AccountService/Auth", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) Get(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ResponseAccounts, error) {
+	out := new(ResponseAccounts)
+	err := c.cc.Invoke(ctx, "/AccountService/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,15 +69,6 @@ func (c *accountServiceClient) Insert(ctx context.Context, in *CreateAccount, op
 	return out, nil
 }
 
-func (c *accountServiceClient) Update(ctx context.Context, in *UpdateAccount, opts ...grpc.CallOption) (*Status, error) {
-	out := new(Status)
-	err := c.cc.Invoke(ctx, "/AccountService/Update", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *accountServiceClient) Delete(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, "/AccountService/Delete", in, out, opts...)
@@ -82,9 +83,10 @@ func (c *accountServiceClient) Delete(ctx context.Context, in *Id, opts ...grpc.
 // for forward compatibility
 type AccountServiceServer interface {
 	Auth(context.Context, *Login) (*Status, error)
+	Get(context.Context, *Empty) (*ResponseAccounts, error)
 	GetById(context.Context, *Id) (*ResponseAccount, error)
 	Insert(context.Context, *CreateAccount) (*Status, error)
-	Update(context.Context, *UpdateAccount) (*Status, error)
+	// rpc Update(UpdateAccount) returns (Status) {}
 	Delete(context.Context, *Id) (*Status, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
@@ -96,14 +98,14 @@ type UnimplementedAccountServiceServer struct {
 func (UnimplementedAccountServiceServer) Auth(context.Context, *Login) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Auth not implemented")
 }
+func (UnimplementedAccountServiceServer) Get(context.Context, *Empty) (*ResponseAccounts, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
 func (UnimplementedAccountServiceServer) GetById(context.Context, *Id) (*ResponseAccount, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetById not implemented")
 }
 func (UnimplementedAccountServiceServer) Insert(context.Context, *CreateAccount) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
-}
-func (UnimplementedAccountServiceServer) Update(context.Context, *UpdateAccount) (*Status, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
 func (UnimplementedAccountServiceServer) Delete(context.Context, *Id) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -135,6 +137,24 @@ func _AccountService_Auth_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).Auth(ctx, req.(*Login))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/AccountService/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).Get(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -175,24 +195,6 @@ func _AccountService_Insert_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAccount)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServiceServer).Update(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/AccountService/Update",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).Update(ctx, req.(*UpdateAccount))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _AccountService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Id)
 	if err := dec(in); err != nil {
@@ -220,16 +222,16 @@ var _AccountService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _AccountService_Auth_Handler,
 		},
 		{
+			MethodName: "Get",
+			Handler:    _AccountService_Get_Handler,
+		},
+		{
 			MethodName: "GetById",
 			Handler:    _AccountService_GetById_Handler,
 		},
 		{
 			MethodName: "Insert",
 			Handler:    _AccountService_Insert_Handler,
-		},
-		{
-			MethodName: "Update",
-			Handler:    _AccountService_Update_Handler,
 		},
 		{
 			MethodName: "Delete",

@@ -14,6 +14,7 @@ message Login {
 message Status {
   int32 code = 1;
   string message = 2;
+  string id = 3;
 }
 
 message UpdateAccount {
@@ -35,8 +36,13 @@ message ResponseAccount {
   string updated_at = 6;
 }
 
+message ResponseAccounts {
+  repeated ResponseAccount accounts = 1;
+}
+
 service AccountService {
   rpc Auth(Login) returns (Status) {}
+  rpc Get(Empty) returns (ResponseAccounts) {}
   rpc GetById(Id) returns (ResponseAccount) {}
   rpc Insert(CreateAccount) returns (Status) {}
   // rpc Update(UpdateAccount) returns (Status) {}

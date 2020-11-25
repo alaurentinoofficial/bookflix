@@ -18,13 +18,30 @@ func (s *AccountService) Auth(ctx context.Context, in *proto.Login) (*proto.Stat
 		return nil, err
 	}
 
-	_, err = helpers.Account.FromModelToProto(account)
+	return &proto.Status{Code: 0, Message: "OK", Id: account.Id.String()}, nil
+}
 
+func (s *AccountService) Get(ctx context.Context, in *proto.Empty) (*proto.ResponseAccounts, error) {
+	log.Println("[*] [AccountService] Get")
+
+	accounts, err := repositories.Account.Get()
 	if err != nil {
 		return nil, err
 	}
 
-	return &proto.Status{Code: 0, Message: "OK"}, nil
+	result := proto.ResponseAccounts{}
+
+	for _, obj := range *accounts {
+		review, err := helpers.Account.FromModelToProto(&obj)
+
+		if err != nil {
+			return nil, err
+		}
+
+		result.Accounts = append(result.Accounts, review)
+	}
+
+	return &result, nil
 }
 
 func (s *AccountService) GetById(ctx context.Context, in *proto.Id) (*proto.ResponseAccount, error) {
@@ -47,19 +64,19 @@ func (s *AccountService) GetById(ctx context.Context, in *proto.Id) (*proto.Resp
 func (s *AccountService) Insert(ctx context.Context, in *proto.CreateAccount) (*proto.Status, error) {
 	log.Println("[*] [AccountService] Insert")
 
-	book, err := helpers.Account.FromProtoToModel(in)
+	account, err := helpers.Account.FromProtoToModel(in)
 
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = repositories.Account.Insert(*book)
+	_, err = repositories.Account.Insert(*account)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &proto.Status{Code: 0, Message: "Ok"}, nil
+	return &proto.Status{Code: 0, Message: "Ok", Id: account.Id.String()}, nil
 }
 
 func (s *AccountService) Delete(ctx context.Context, in *proto.Id) (*proto.Status, error) {
