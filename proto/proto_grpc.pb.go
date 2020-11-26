@@ -245,8 +245,9 @@ var _CatalogService_serviceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BannerServiceClient interface {
 	Get(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Banners, error)
-	Insert(ctx context.Context, in *Catalog, opts ...grpc.CallOption) (*Status, error)
-	Update(ctx context.Context, in *Catalog, opts ...grpc.CallOption) (*Status, error)
+	GetById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Banner, error)
+	Insert(ctx context.Context, in *Banner, opts ...grpc.CallOption) (*Status, error)
+	Update(ctx context.Context, in *Banner, opts ...grpc.CallOption) (*Status, error)
 	Delete(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error)
 }
 
@@ -267,7 +268,16 @@ func (c *bannerServiceClient) Get(ctx context.Context, in *Empty, opts ...grpc.C
 	return out, nil
 }
 
-func (c *bannerServiceClient) Insert(ctx context.Context, in *Catalog, opts ...grpc.CallOption) (*Status, error) {
+func (c *bannerServiceClient) GetById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Banner, error) {
+	out := new(Banner)
+	err := c.cc.Invoke(ctx, "/BannerService/GetById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bannerServiceClient) Insert(ctx context.Context, in *Banner, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, "/BannerService/Insert", in, out, opts...)
 	if err != nil {
@@ -276,7 +286,7 @@ func (c *bannerServiceClient) Insert(ctx context.Context, in *Catalog, opts ...g
 	return out, nil
 }
 
-func (c *bannerServiceClient) Update(ctx context.Context, in *Catalog, opts ...grpc.CallOption) (*Status, error) {
+func (c *bannerServiceClient) Update(ctx context.Context, in *Banner, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, "/BannerService/Update", in, out, opts...)
 	if err != nil {
@@ -299,8 +309,9 @@ func (c *bannerServiceClient) Delete(ctx context.Context, in *Id, opts ...grpc.C
 // for forward compatibility
 type BannerServiceServer interface {
 	Get(context.Context, *Empty) (*Banners, error)
-	Insert(context.Context, *Catalog) (*Status, error)
-	Update(context.Context, *Catalog) (*Status, error)
+	GetById(context.Context, *Id) (*Banner, error)
+	Insert(context.Context, *Banner) (*Status, error)
+	Update(context.Context, *Banner) (*Status, error)
 	Delete(context.Context, *Id) (*Status, error)
 	mustEmbedUnimplementedBannerServiceServer()
 }
@@ -312,10 +323,13 @@ type UnimplementedBannerServiceServer struct {
 func (UnimplementedBannerServiceServer) Get(context.Context, *Empty) (*Banners, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedBannerServiceServer) Insert(context.Context, *Catalog) (*Status, error) {
+func (UnimplementedBannerServiceServer) GetById(context.Context, *Id) (*Banner, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedBannerServiceServer) Insert(context.Context, *Banner) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
 }
-func (UnimplementedBannerServiceServer) Update(context.Context, *Catalog) (*Status, error) {
+func (UnimplementedBannerServiceServer) Update(context.Context, *Banner) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
 func (UnimplementedBannerServiceServer) Delete(context.Context, *Id) (*Status, error) {
@@ -352,8 +366,26 @@ func _BannerService_Get_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BannerService_GetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BannerServiceServer).GetById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/BannerService/GetById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BannerServiceServer).GetById(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _BannerService_Insert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Catalog)
+	in := new(Banner)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -365,13 +397,13 @@ func _BannerService_Insert_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/BannerService/Insert",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BannerServiceServer).Insert(ctx, req.(*Catalog))
+		return srv.(BannerServiceServer).Insert(ctx, req.(*Banner))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _BannerService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Catalog)
+	in := new(Banner)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -383,7 +415,7 @@ func _BannerService_Update_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/BannerService/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BannerServiceServer).Update(ctx, req.(*Catalog))
+		return srv.(BannerServiceServer).Update(ctx, req.(*Banner))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -413,6 +445,10 @@ var _BannerService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _BannerService_Get_Handler,
+		},
+		{
+			MethodName: "GetById",
+			Handler:    _BannerService_GetById_Handler,
 		},
 		{
 			MethodName: "Insert",

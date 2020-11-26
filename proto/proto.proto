@@ -55,8 +55,9 @@ message Banners {
 
 service BannerService {
   rpc Get (Empty) returns (Banners) {}
-  rpc Insert(Catalog) returns (Status) {}
-  rpc Update(Catalog) returns (Status) {}
+  rpc GetById(Id) returns (Banner) {}
+  rpc Insert(Banner) returns (Status) {}
+  rpc Update(Banner) returns (Status) {}
   rpc Delete(Id) returns (Status) {}
 }
 
