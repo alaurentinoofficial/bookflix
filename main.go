@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"ng-book-service/db"
-	"ng-book-service/proto"
-	"ng-book-service/services"
+	"ng-catalog-service/db"
+	"ng-catalog-service/proto"
+	"ng-catalog-service/services"
 	"os"
 
 	"google.golang.org/grpc"
@@ -29,9 +29,8 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	proto.RegisterBookServiceServer(s, &services.BookService{})
-	proto.RegisterCategoryServiceServer(s, &services.CategoryService{})
-	proto.RegisterReviewServiceServer(s, &services.ReviewService{})
+	proto.RegisterCatalogServiceServer(s, &services.CatalogService{})
+	proto.RegisterBannerServiceServer(s, &services.BannerService{})
 
 	log.Println("[*] Listening in", port)
 

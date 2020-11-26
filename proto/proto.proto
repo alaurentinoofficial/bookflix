@@ -11,6 +11,59 @@ message Status {
   string message = 2;
 }
 
+message BookResume {
+  string id = 1;
+  string name = 2;
+  string img = 3;
+}
+
+message Catalog {
+  string id = 1;
+  string name = 2;
+  repeated BookResume books = 3;
+}
+
+message Catalogs {
+  repeated Catalog catalogs = 3;
+}
+
+service CatalogService {
+  rpc Get (Empty) returns (Catalogs) {}
+  rpc GetById(Id) returns (Catalog) {}
+  rpc Insert(Catalog) returns (Status) {}
+  rpc Update(Catalog) returns (Status) {}
+  rpc Delete(Id) returns (Status) {}
+}
+
+message BannerItem {
+  string id = 1;
+  string placeholder = 2;
+  string link = 3;
+  string img = 4;
+}
+
+message Banner {
+  string id = 1;
+  string name = 2;
+  repeated BannerItem items = 3;
+}
+
+message Banners {
+  string id = 1;
+  string name = 2;
+  repeated BannerItem items = 3;
+}
+
+service BannerService {
+  rpc Get (Empty) returns (Banners) {}
+  rpc Insert(Catalog) returns (Status) {}
+  rpc Update(Catalog) returns (Status) {}
+  rpc Delete(Id) returns (Status) {}
+}
+
+
+// ----
+
 message Category {
   string id = 1;
   string name = 2;
