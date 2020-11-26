@@ -50,9 +50,7 @@ message Banner {
 }
 
 message Banners {
-  string id = 1;
-  string name = 2;
-  repeated BannerItem items = 3;
+  repeated Banner Banners = 1;
 }
 
 service BannerService {
