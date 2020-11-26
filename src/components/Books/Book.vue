@@ -1,18 +1,18 @@
 <template>
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mt-3">
-    <router-link to="/review">
+    <router-link :to="'/review/' + bookIdUrl">
       <img
         class="bookimage"
-        src="@/assets/bookImage1.jpg"
+        :src="bookImageUrl"
         alt="Imagem do livro Antifragil"
       />
       <div class="position-relative book-transparent-box"></div>
       <div class="book-rate d-flex flex-column">
         <div>
           <em class="fa fa-star book-rate-star"></em>
-          <span>4.7</span>
+          <span>{{ bookRate }}</span>
         </div>
-        <span class="book-title">Antifragil</span>
+        <span class="book-title">{{ bookTitle }}</span>
       </div>
     </router-link>
   </div>
@@ -20,7 +20,8 @@
 
 <script>
 export default {
-  name: "Book",
+  props: ['bookIdUrl', 'bookImageUrl', 'bookTitle', 'bookRate'],
+  name: "Book"
 };
 </script>
 

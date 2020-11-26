@@ -3,30 +3,17 @@
     <div class="col-12 ml-3 mt-5 book-details">
       <div class="book-details-content mt-3 ml-3">
         <div class="row ml-auto mr-auto review-stars">
-          <em
-            class="fa fa-star book-rate-star-review col-lg-1 col-md-12 col-sm-12 col-xs-12 offset-md-1 offset-sm-1 offset-xs-1"
-          ></em>
-          <em
-            class="fa fa-star book-rate-star-review col-lg-1 col-md-12 col-sm-12 col-xs-12 offset-md-1 offset-sm-1 offset-xs-1"
-          ></em>
-          <em
-            class="fa fa-star book-rate-star-review col-lg-1 col-md-12 col-sm-12 col-xs-12 offset-md-1 offset-sm-1 offset-xs-1"
-          ></em>
-          <em
-            class="fa fa-star book-rate-star-review col-lg-1 col-md-12 col-sm-12 col-xs-12 offset-md-1 offset-sm-1 offset-xs-1"
-          ></em>
-          <em
-            class="fa fa-star book-rate-star-review col-lg-1 col-md-12 col-sm-12 col-xs-12 offset-md-1 offset-sm-1 offset-xs-1"
-          ></em>
+          <Star :rating="ratingReview" />
         </div>
         <div class="form-group mt-4 ml-auto mr-auto" style="width: 80%">
           <textarea
             class="form-control review-textarea"
             id="exampleFormControlTextarea1"
             rows="4"
+            v-on:focusout="reviewComment = $event.target.value"
           ></textarea>
           <div class="col-md-12 text-center">
-            <button type="submit" class="btn btn-primary mt-3 review-button">
+            <button type="submit" class="btn btn-primary mt-3 review-button" v-on:click="SendReview">
               ENVIAR
             </button>
           </div>
@@ -37,7 +24,41 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+import Star from "@/components/widgets/Stars"
+
+export default {
+  props: ["bookId"],
+  name: "ReviewForm",
+  components: {
+    Star
+  },
+  data() {
+    return {
+      reviewComment: "",
+      ratingReview: 0
+    }
+  },
+  computed: {
+    ...mapState(["starToReview"])
+  },
+  methods: {
+    SendReview() {
+      this.$store.dispatch("addReview", { 
+        self: this, 
+        review: {
+          Body: this.reviewComment,
+          body: this.reviewComment,
+          Rating: this.ratingReview,
+          BookId: this.bookId,
+          rating: this.ratingReview,
+          User: "Teste"
+        }
+      });
+      console.log(this.reviewComment)
+    }
+  }
+};
 </script>
 
 <style scoped>

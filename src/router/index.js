@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import store from '@/store/index';
 
 Vue.use(VueRouter)
 
@@ -8,12 +8,27 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => {
+      store.state.logginState = true;
+      return import ('../views/Home.vue')
+    }
   },
   {
-    path: '/review',
+    path: '/login',
+    name: 'Login',
+    component: () => {
+      store.state.logginState = false;
+      return import ('../views/Login.vue')
+    }
+  },
+  {
+    path: '/review/:id',
     name: 'Review',
-    component: () => import('../views/Review.vue')
+    component: () => { 
+      store.state.logginState = true;
+      return import('../views/Review.vue')
+    },
+    props: true
   }
 ]
 

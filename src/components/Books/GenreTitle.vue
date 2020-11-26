@@ -2,13 +2,14 @@
   <div class="row mt-3 justify-content-start">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="book-header-rect"></div>
-      <h1 class="book-genre-title ml-2">Best sellers</h1>
+      <h1 class="book-genre-title ml-2">{{ bookTitle }}</h1>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["bookTitle"],
   name: "GenreTitle",
 };
 </script>

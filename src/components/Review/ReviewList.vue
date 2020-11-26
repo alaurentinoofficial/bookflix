@@ -1,9 +1,9 @@
 <template>
   <div class="row justify-content-between">
     <div class="col-12 ml-3 mt-5 book-details">
-      <Review />
-      <br />
-      <Review />
+      <template v-for="review in reviews">
+        <Review :reviewUser="review.User" :reviewRate="review.rating" :reviewComment="review.body" />
+      </template>
     </div>
   </div>
 </template>
@@ -12,6 +12,7 @@
 import Review from "@/components/Review/Review.vue";
 
 export default {
+  props:['reviews'],
   name: "ReviewList",
   components: {
     Review,

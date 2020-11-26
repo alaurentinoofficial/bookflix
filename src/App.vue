@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Topbar />
+    <Topbar v-if="logginState" />
     <router-view id="content-wrapper" class="d-flex flex-column" />
-    <Footer />
+    <Footer v-if="logginState" />
   </div>
 </template>
 
@@ -16,9 +16,13 @@ export default {
     Topbar,
     Footer,
   },
+  computed: {
+    logginState() { 
+      return this.$store.state.logginState; 
+    }
+  }
 };
 </script>
-
 <style>
 #content-wrapper {
   background-color: #000000;
