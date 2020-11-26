@@ -11,16 +11,16 @@ message Status {
   string message = 2;
 }
 
-message BookResume {
+message CatalogItem {
   string id = 1;
   string name = 2;
-  string img = 3;
+  string image_url = 3;
 }
 
 message Catalog {
   string id = 1;
   string name = 2;
-  repeated BookResume books = 3;
+  repeated CatalogItem items = 3;
 }
 
 message Catalogs {
