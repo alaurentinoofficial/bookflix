@@ -39,7 +39,7 @@ message BannerItem {
   string id = 1;
   string placeholder = 2;
   string link = 3;
-  string img = 4;
+  string image_url = 4;
 }
 
 message Banner {

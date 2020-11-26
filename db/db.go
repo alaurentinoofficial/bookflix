@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"log"
+	"ng-catalog-service/models"
 	"os"
 
 	"github.com/jinzhu/gorm"
@@ -37,8 +38,8 @@ func Init() {
 
 	db = conn
 
-	// db.DropTableIfExists(&models.Catalog{}, &models.Banner{})
-	// db.AutoMigrate(&models.Catalog{}, &models.Banner{})
+	db.DropTableIfExists(&models.Catalog{}, &models.BookResume{}, &models.Banner{}, &models.BannerItem{})
+	db.AutoMigrate(&models.Catalog{}, &models.Banner{}, &models.Banner{}, &models.BannerItem{})
 }
 
 func Get() *gorm.DB {
