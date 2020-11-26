@@ -10,6 +10,7 @@ import (
 type CatalogItem struct {
 	Id       uuid.UUID `json:"id"`
 	Name     string    `json:"Name"`
+	ItemId   uuid.UUID `json:"item_id"`
 	ImageUrl string    `json:"image_url,omitempty"`
 }
 
@@ -21,8 +22,11 @@ func (this *CatalogItem) BeforeCreate(scope *gorm.Scope) error {
 }
 
 func (this *CatalogItem) FromProto(proto *proto.CatalogItem) {
-	uuid_item, _ := uuid.FromString(proto.Id)
-	this.Id = uuid_item
+	uu, _ := uuid.FromString(proto.Id)
+	uuid_item, _ := uuid.FromString(proto.ItemId)
+
+	this.Id = uu
+	this.ItemId = uuid_item
 	this.Name = proto.Name
 	this.ImageUrl = proto.ImageUrl
 }
@@ -30,6 +34,7 @@ func (this *CatalogItem) FromProto(proto *proto.CatalogItem) {
 func (this *CatalogItem) Proto() *proto.CatalogItem {
 	return &proto.CatalogItem{
 		Id:       this.Id.String(),
+		ItemId:   this.ItemId.String(),
 		Name:     this.Name,
 		ImageUrl: this.ImageUrl,
 	}

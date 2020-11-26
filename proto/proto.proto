@@ -14,7 +14,8 @@ message Status {
 message CatalogItem {
   string id = 1;
   string name = 2;
-  string image_url = 3;
+  string item_id = 3;
+  string image_url = 4;
 }
 
 message Catalog {
