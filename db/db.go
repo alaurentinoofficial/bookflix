@@ -38,8 +38,8 @@ func Init() {
 
 	db = conn
 
-	db.DropTableIfExists(&models.Catalog{}, &models.BookResume{}, &models.Banner{}, &models.BannerItem{})
-	db.AutoMigrate(&models.Catalog{}, &models.Banner{}, &models.Banner{}, &models.BannerItem{})
+	db.DropTableIfExists(&models.Catalog{}, &models.CatalogItem{}, &models.Banner{}, &models.BannerItem{})
+	db.AutoMigrate(&models.Catalog{}, &models.CatalogItem{}, &models.Banner{}, &models.BannerItem{})
 }
 
 func Get() *gorm.DB {
