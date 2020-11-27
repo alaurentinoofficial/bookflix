@@ -1,4 +1,4 @@
-import { param, body, check } from "express-validator";
+import { param, body } from "express-validator";
 
 exports.InsertBookValidation = [
     body('title').notEmpty().isString().isLength({ min: 2 }),
@@ -19,5 +19,5 @@ exports.UpdateBookValidation = [
 ]
 
 exports.UrlBookValidation = [
-    param('bookId', "invalid book id").notEmpty().isString().isUUID()
+    param('bookId').notEmpty().isString().isUUID()
 ]
