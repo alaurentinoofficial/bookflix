@@ -2,8 +2,11 @@ import grpc from 'grpc'
 import { grpcCode, RPCtoError } from "../configs/strings"
 import { validationResult } from "express-validator";
 
-let proto = grpc.load('./protos/book.proto')
+var proto = grpc.load('./protos/book.proto')
 var ReviewService = new proto.ReviewService(process.env.BOOK_SERVICE || "localhost:9010", grpc.credentials.createInsecure())
+
+proto = grpc.load('./protos/account.proto')
+var AccountService = new proto.AccountService(process.env.ACCOUNT_SERVICE || "localhost:9000", grpc.credentials.createInsecure())
 
 export class ReviewController {
     static insert (req, res) {
@@ -15,16 +18,27 @@ export class ReviewController {
             return res.status(400).json(result);
         }
 
-        req.body.book_id = req.params.bookId
-
-        ReviewService.Insert(req.body, (err, result) => {
-            if(err)
+        AccountService.GetById({id: req.userId}, (err, user) => {
+            if (err)
                 return res.json(RPCtoError(err));
+
+            let body_request = {
+                account_id: req.userId,
+                book_id: req.params.bookId,
+                user_name: user.name,
+                rating: req.body.rating,
+                resume: req.body.resume
+            };
             
-            let response = JSON.parse(JSON.stringify(grpcCode.OK));
-    
-            res.json(response);
-        })
+            ReviewService.Insert(body_request, (err, result) => {
+                if(err)
+                    return res.json(RPCtoError(err));
+                
+                let response = JSON.parse(JSON.stringify(grpcCode.OK));
+        
+                res.json(response);
+            });
+        });
     }
 
     static getByAccountId (req, res) {
@@ -80,7 +94,7 @@ export class ReviewController {
             return res.status(400).json(result);
         }
 
-        ReviewService.Delete({id: req.params.reviewId}, (err, result) => {
+        ReviewService.Delete({id: req.params.reviewId, account_id: req.userId}, (err, result) => {
             if(err)
                 return res.json(RPCtoError(err));
             

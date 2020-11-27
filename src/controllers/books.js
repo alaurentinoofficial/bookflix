@@ -1,9 +1,12 @@
-import grpc from 'grpc'
-import { grpcCode, RPCtoError } from "../configs/strings"
+import grpc from 'grpc';
+import { grpcCode, RPCtoError } from "../configs/strings";
 import { validationResult } from "express-validator";
 
-let proto = grpc.load('./protos/book.proto')
+var proto = grpc.load('./protos/book.proto')
 var BookService = new proto.BookService(process.env.BOOK_SERVICE || "localhost:9010", grpc.credentials.createInsecure())
+
+proto = grpc.load('./protos/account.proto')
+var AccountService = new proto.AccountService(process.env.ACCOUNT_SERVICE || "localhost:9000", grpc.credentials.createInsecure())
 
 export class BookController {
     static insert (req, res) {
@@ -15,14 +18,29 @@ export class BookController {
             return res.status(400).json(result);
         }
 
-        BookService.Insert(req.body, (err, result) => {
-            if(err)
+        AccountService.GetById({id: req.userId}, (err, user) => {
+            if (err)
                 return res.json(RPCtoError(err));
             
-            let response = JSON.parse(JSON.stringify(grpcCode.OK));
-    
-            res.json(response);
-        })
+            if (user.profile != 'ADMIN')
+                return res.status(401).json(JSON.parse(JSON.stringify(grpcCode.PermissionDenied)));
+
+            let body_request = {
+                title: req.body.title,
+                author: req.body.author,
+                resume: req.body.resume,
+                image_url: req.body.image_url,
+            };
+            
+            BookService.Insert(body_request, (err, result) => {
+                if(err)
+                    return res.json(RPCtoError(err));
+                
+                let response = JSON.parse(JSON.stringify(grpcCode.OK));
+        
+                res.json(response);
+            });
+        });
     }
 
     static update (req, res) {
@@ -34,16 +52,30 @@ export class BookController {
             return res.status(400).json(result);
         }
 
-        req.body.id = req.params.bookId
-
-        BookService.Update(req.body, (err, result) => {
-            if(err)
+        AccountService.GetById({id: req.userId}, (err, user) => {
+            if (err)
                 return res.json(RPCtoError(err));
             
-            let response = JSON.parse(JSON.stringify(grpcCode.OK));
-    
-            res.json(response);
-        })
+            if (user.profile != 'ADMIN')
+                return res.status(401).json(JSON.parse(JSON.stringify(grpcCode.PermissionDenied)));
+
+            let body_request = {
+                id: req.params.bookId,
+                title: req.body.title,
+                author: req.body.author,
+                resume: req.body.resume,
+                image_url: req.body.image_url,
+            };
+            
+            BookService.Update(body_request, (err, result) => {
+                if(err)
+                    return res.json(RPCtoError(err));
+                
+                let response = JSON.parse(JSON.stringify(grpcCode.OK));
+        
+                res.json(response);
+            });
+        });
     }
 
     static get (req, res) {
@@ -87,13 +119,21 @@ export class BookController {
             return res.status(400).json(result);
         }
 
-        BookService.Delete({id: req.params.bookId}, (err, result) => {
-            if(err)
+        AccountService.GetById({id: req.userId}, (err, user) => {
+            if (err)
                 return res.json(RPCtoError(err));
             
-            let response = JSON.parse(JSON.stringify(grpcCode.OK));
-    
-            res.json(response);
-        })
+            if (user.profile != 'ADMIN')
+                return res.status(401).json(JSON.parse(JSON.stringify(grpcCode.PermissionDenied)));
+            
+            BookService.Delete({id: req.params.bookId}, (err, result) => {
+                if(err)
+                    return res.json(RPCtoError(err));
+                
+                let response = JSON.parse(JSON.stringify(grpcCode.OK));
+        
+                res.json(response);
+            });
+        });
     }
 }
