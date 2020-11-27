@@ -3,7 +3,7 @@ import { grpcCode, RPCtoError } from "../configs/strings"
 import { GenerateToken } from '../utils/generate_token'
 
 let proto = grpc.load('./protos/account.proto')
-var AccountService = new proto.AccountService(process.env.ACCOUNT || "localhost:9090", grpc.credentials.createInsecure())
+var AccountService = new proto.AccountService(process.env.ACCOUNT_SERVICE || "localhost:9000", grpc.credentials.createInsecure())
 
 export class AccountController {
     static login (req, res) {

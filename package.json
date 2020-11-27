@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "npm test",
-    "start": "npx run babel && node dist/bin/www.js"
+    "start": "npx babel src --out-dir dist && node dist/bin/www.js"
   },
   "keywords": [
     "gateway"
@@ -17,6 +17,7 @@
     "colors": "^1.3.0",
     "dotenv": "^8.2.0",
     "express": "^4.16.2",
+    "express-validator": "^6.7.0",
     "grpc": "^1.17.0-pre1",
     "jsonwebtoken": "^8.5.1"
   },
