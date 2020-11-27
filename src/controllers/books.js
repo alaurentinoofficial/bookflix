@@ -107,7 +107,7 @@ export class BookController {
             response.body = result
     
             res.json(response);
-        })
+        });
     }
 
     static delete (req, res) {

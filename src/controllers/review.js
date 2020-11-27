@@ -21,22 +21,27 @@ export class ReviewController {
         AccountService.GetById({id: req.userId}, (err, user) => {
             if (err)
                 return res.json(RPCtoError(err));
-
-            let body_request = {
-                account_id: req.userId,
-                book_id: req.params.bookId,
-                user_name: user.name,
-                rating: req.body.rating,
-                resume: req.body.resume
-            };
             
-            ReviewService.Insert(body_request, (err, result) => {
+            BookService.GetById({id: req.params.bookId}, (err, result) => {
                 if(err)
                     return res.json(RPCtoError(err));
                 
-                let response = JSON.parse(JSON.stringify(grpcCode.OK));
-        
-                res.json(response);
+                let body_request = {
+                    account_id: req.userId,
+                    book_id: req.params.bookId,
+                    user_name: user.name,
+                    rating: req.body.rating,
+                    resume: req.body.resume
+                };
+                
+                ReviewService.Insert(body_request, (err, result) => {
+                    if(err)
+                        return res.json(RPCtoError(err));
+                    
+                    let response = JSON.parse(JSON.stringify(grpcCode.OK));
+            
+                    res.json(response);
+                });
             });
         });
     }
