@@ -478,7 +478,7 @@ type ReviewServiceClient interface {
 	GetById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Review, error)
 	Insert(ctx context.Context, in *Review, opts ...grpc.CallOption) (*Status, error)
 	// rpc Update(Review) returns (Status) {}
-	Delete(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error)
+	Delete(ctx context.Context, in *IdAccountId, opts ...grpc.CallOption) (*Status, error)
 }
 
 type reviewServiceClient struct {
@@ -543,7 +543,7 @@ func (c *reviewServiceClient) Insert(ctx context.Context, in *Review, opts ...gr
 	return out, nil
 }
 
-func (c *reviewServiceClient) Delete(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error) {
+func (c *reviewServiceClient) Delete(ctx context.Context, in *IdAccountId, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
 	err := c.cc.Invoke(ctx, "/ReviewService/Delete", in, out, opts...)
 	if err != nil {
@@ -563,7 +563,7 @@ type ReviewServiceServer interface {
 	GetById(context.Context, *Id) (*Review, error)
 	Insert(context.Context, *Review) (*Status, error)
 	// rpc Update(Review) returns (Status) {}
-	Delete(context.Context, *Id) (*Status, error)
+	Delete(context.Context, *IdAccountId) (*Status, error)
 	mustEmbedUnimplementedReviewServiceServer()
 }
 
@@ -589,7 +589,7 @@ func (UnimplementedReviewServiceServer) GetById(context.Context, *Id) (*Review, 
 func (UnimplementedReviewServiceServer) Insert(context.Context, *Review) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
 }
-func (UnimplementedReviewServiceServer) Delete(context.Context, *Id) (*Status, error) {
+func (UnimplementedReviewServiceServer) Delete(context.Context, *IdAccountId) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedReviewServiceServer) mustEmbedUnimplementedReviewServiceServer() {}
@@ -714,7 +714,7 @@ func _ReviewService_Insert_Handler(srv interface{}, ctx context.Context, dec fun
 }
 
 func _ReviewService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Id)
+	in := new(IdAccountId)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -726,7 +726,7 @@ func _ReviewService_Delete_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/ReviewService/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReviewServiceServer).Delete(ctx, req.(*Id))
+		return srv.(ReviewServiceServer).Delete(ctx, req.(*IdAccountId))
 	}
 	return interceptor(ctx, in, info, handler)
 }

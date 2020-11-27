@@ -64,10 +64,10 @@ func (this *reviewRepository) Update(category models.Review) (*models.Review, er
 	return &category, nil
 }
 
-func (this *reviewRepository) Delete(id string) (*[]models.Review, error) {
+func (this *reviewRepository) Delete(id string, accountId string) (*[]models.Review, error) {
 	result := []models.Review{}
 
-	if err := db.Get().Where("id = ?", id).Delete(&result).Error; err != nil {
+	if err := db.Get().Where("id = ? and account_id", id, accountId).Delete(&result).Error; err != nil {
 		return nil, err
 	}
 

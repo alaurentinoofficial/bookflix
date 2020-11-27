@@ -6,6 +6,11 @@ message Id {
   string id = 1;
 }
 
+message IdAccountId {
+  string id = 1;
+  string account_id = 2;
+}
+
 message Status {
   int32 code = 1;
   string message = 2;
@@ -44,9 +49,8 @@ message Review {
   float pos_neg_rating = 3;
   string resume = 4;
   string book_id = 5;
-  string account_id = 6;
-  string created_at = 7;
-  string updated_at = 8;
+  string user_name = 6;
+  string account_id = 7;
 }
 
 message Reviews {
@@ -77,5 +81,5 @@ service ReviewService {
   rpc GetById(Id) returns (Review) {}
   rpc Insert(Review) returns (Status) {}
   // rpc Update(Review) returns (Status) {}
-  rpc Delete(Id) returns (Status) {}
+  rpc Delete(IdAccountId) returns (Status) {}
 }

@@ -17,8 +17,9 @@ func (review) FromModelToProto(category *models.Review) (*proto.Review, error) {
 		Rating:       category.Rating,
 		PosNegRating: category.PosNegRating,
 		Resume:       category.Resume,
-		CreatedAt:    category.CreatedAt.String(),
-		UpdatedAt:    category.UpdatedAt.String(),
+		UserName:     category.UserName,
+		// CreatedAt:    category.CreatedAt.String(),
+		// UpdatedAt:    category.UpdatedAt.String(),
 	}
 
 	return &result, nil
@@ -36,6 +37,7 @@ func (review) FromProtoToModel(category *proto.Review) (*models.Review, error) {
 		Resume:       category.Resume,
 		Rating:       category.Rating,
 		PosNegRating: category.PosNegRating,
+		UserName:     category.UserName,
 	}
 
 	return &result, nil

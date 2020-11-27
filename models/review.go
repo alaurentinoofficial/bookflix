@@ -14,9 +14,9 @@ type Review struct {
 	Resume       string    `json:"resume,omitempty"`
 	CreatedAt    time.Time `json:"created_at,omitempty"`
 	UpdatedAt    time.Time `json:"update_at,omitempty"`
+	UserName     string    `json:"user_name,omitempty"`
 
-	BookId uuid.UUID `json:"book_id" gorm:"not null"`
-
+	BookId    uuid.UUID `json:"book_id" gorm:"not null"`
 	AccountId uuid.UUID `json:"account_id" gorm:"not null"`
 }
 

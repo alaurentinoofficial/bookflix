@@ -132,10 +132,10 @@ func (s *ReviewService) Insert(ctx context.Context, in *proto.Review) (*proto.St
 // 	return &proto.Status{Code: 0, Message: "Ok"}, nil
 // }
 
-func (s *ReviewService) Delete(ctx context.Context, in *proto.Id) (*proto.Status, error) {
+func (s *ReviewService) Delete(ctx context.Context, in *proto.IdAccountId) (*proto.Status, error) {
 	log.Println("[*] [ReviewService] Delete")
 
-	if _, err := repositories.Review.Delete(in.Id); err != nil {
+	if _, err := repositories.Review.Delete(in.Id, in.AccountId); err != nil {
 		return nil, err
 	}
 
