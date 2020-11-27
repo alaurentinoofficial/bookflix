@@ -3,7 +3,7 @@ import { grpcCode, RPCtoError } from "../configs/strings"
 import { validationResult } from "express-validator";
 
 let proto = grpc.load('./protos/book.proto')
-var BookService = new proto.BookService(process.env.BOOK_SERVICE || "localhost:9010", grpc.credentials.createInsecure())
+var ReviewService = new proto.ReviewService(process.env.BOOK_SERVICE || "localhost:9010", grpc.credentials.createInsecure())
 
 export class ReviewController {
     static insert (req, res) {
@@ -15,7 +15,9 @@ export class ReviewController {
             return res.status(400).json(result);
         }
 
-        BookService.Insert(req.body, (err, result) => {
+        req.body.book_id = req.params.bookId
+
+        ReviewService.Insert(req.body, (err, result) => {
             if(err)
                 return res.json(RPCtoError(err));
             
@@ -26,7 +28,7 @@ export class ReviewController {
     }
 
     static getByAccountId (req, res) {
-        BookService.GetByAccountId({id: req.userId}, (err, result) => {
+        ReviewService.GetByAccountId({id: req.userId}, (err, result) => {
             if(err)
                 return res.json(RPCtoError(err));
             
@@ -38,7 +40,7 @@ export class ReviewController {
     }
 
     static getByBookId (req, res) {
-        BookService.GetByAccountId({id: req.params.bookId}, (err, result) => {
+        ReviewService.GetByBookId({id: req.params.bookId}, (err, result) => {
             if(err)
                 return res.json(RPCtoError(err));
             
@@ -58,7 +60,7 @@ export class ReviewController {
             return res.status(400).json(result);
         }
 
-        BookService.GetById({id: req.params.reviewId}, (err, result) => {
+        ReviewService.GetById({id: req.params.reviewId}, (err, result) => {
             if(err)
                 return res.json(RPCtoError(err));
             
@@ -78,7 +80,7 @@ export class ReviewController {
             return res.status(400).json(result);
         }
 
-        BookService.Delete({id: req.params.reviewId}, (err, result) => {
+        ReviewService.Delete({id: req.params.reviewId}, (err, result) => {
             if(err)
                 return res.json(RPCtoError(err));
             

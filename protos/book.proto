@@ -49,7 +49,7 @@ message Review {
 }
 
 message Reviews {
-  repeated Review Reviews = 1;
+  repeated Review reviews = 1;
 }
 
 service BookService {
