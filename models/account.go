@@ -1,6 +1,7 @@
 package models
 
 import (
+	"ng-auth-service/utils"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -23,6 +24,8 @@ func (account *Account) BeforeCreate(scope *gorm.Scope) error {
 
 	scope.SetColumn("CreatedAt", time.Now())
 	scope.SetColumn("UpdatedAt", nil)
+
+	scope.SetColumn("Password", utils.HashPassword(account.Password))
 
 	return nil
 }

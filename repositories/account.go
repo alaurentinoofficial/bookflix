@@ -4,6 +4,7 @@ import (
 	"ng-auth-service/db"
 	"ng-auth-service/models"
 
+	"golang.org/x/crypto/bcrypt"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -13,8 +14,13 @@ type accountRepository struct{}
 func (this *accountRepository) Auth(email string, password string) (*models.Account, error) {
 	result := models.Account{}
 
-	if err := db.Get().Where("email = ? and password = ?", email, password).First(&result).Error; err != nil {
+	if err := db.Get().Where("email = ?", email).First(&result).Error; err != nil {
 		return nil, err
+	}
+
+	errPwd := bcrypt.CompareHashAndPassword([]byte(result.Password), []byte(password))
+	if errPwd != nil && errPwd == bcrypt.ErrMismatchedHashAndPassword {
+		return nil, status.Error(codes.InvalidArgument, "Email or Password invalid!")
 	}
 
 	return &result, nil
