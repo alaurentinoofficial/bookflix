@@ -4,6 +4,7 @@ import { validationResult } from "express-validator";
 
 var proto = grpc.load('./protos/book.proto')
 var ReviewService = new proto.ReviewService(process.env.BOOK_SERVICE || "localhost:9010", grpc.credentials.createInsecure())
+var BookService = new proto.BookService(process.env.BOOK_SERVICE || "localhost:9010", grpc.credentials.createInsecure())
 
 proto = grpc.load('./protos/account.proto')
 var AccountService = new proto.AccountService(process.env.ACCOUNT_SERVICE || "localhost:9000", grpc.credentials.createInsecure())
