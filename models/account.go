@@ -1,6 +1,7 @@
 package models
 
 import (
+	"ng-auth-service/proto"
 	"ng-auth-service/utils"
 	"time"
 
@@ -33,4 +34,23 @@ func (account *Account) BeforeCreate(scope *gorm.Scope) error {
 func (this *Account) BeforeUpdate(scope *gorm.Scope) error {
 	scope.SetColumn("UpdatedAt", time.Now())
 	return nil
+}
+
+func (this *Account) Proto() *proto.ResponseAccount {
+	result := proto.ResponseAccount{
+		Id:        this.Id.String(),
+		Name:      this.Name,
+		Email:     this.Email,
+		Profile:   this.Profile,
+		CreatedAt: this.CreatedAt.String(),
+		UpdatedAt: this.UpdatedAt.String(),
+	}
+
+	return &result
+}
+
+func (this *Account) FromProto(acc *proto.CreateAccount) {
+	this.Name = acc.Name
+	this.Email = acc.Email
+	this.Password = acc.Password
 }

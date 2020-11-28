@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 	"log"
-	"ng-auth-service/helpers"
+	"ng-auth-service/models"
 	"ng-auth-service/proto"
 	"ng-auth-service/repositories"
 )
@@ -32,13 +32,7 @@ func (s *AccountService) Get(ctx context.Context, in *proto.Empty) (*proto.Respo
 	result := proto.ResponseAccounts{}
 
 	for _, obj := range *accounts {
-		review, err := helpers.Account.FromModelToProto(&obj)
-
-		if err != nil {
-			return nil, err
-		}
-
-		result.Accounts = append(result.Accounts, review)
+		result.Accounts = append(result.Accounts, obj.Proto())
 	}
 
 	return &result, nil
@@ -52,25 +46,16 @@ func (s *AccountService) GetById(ctx context.Context, in *proto.Id) (*proto.Resp
 		return nil, err
 	}
 
-	result, err := helpers.Account.FromModelToProto(account)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return result, nil
+	return account.Proto(), nil
 }
 
 func (s *AccountService) Insert(ctx context.Context, in *proto.CreateAccount) (*proto.Status, error) {
 	log.Println("[*] [AccountService] Insert")
 
-	account, err := helpers.Account.FromProtoToModel(in)
+	account := models.Account{}
+	account.FromProto(in)
 
-	if err != nil {
-		return nil, err
-	}
-
-	_, err = repositories.Account.Insert(*account)
+	_, err := repositories.Account.Insert(account)
 
 	if err != nil {
 		return nil, err

@@ -24,7 +24,7 @@ func TestIntegrationMain(t *testing.T) {
 
 func Insert(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9090"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -51,7 +51,7 @@ func Insert(t *testing.T) {
 
 func Get(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9090"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -74,7 +74,7 @@ func Get(t *testing.T) {
 
 func GetDeleted(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9090"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -95,7 +95,7 @@ func GetDeleted(t *testing.T) {
 
 func Login(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9090"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -121,7 +121,7 @@ func Login(t *testing.T) {
 
 func GetById(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9090"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -143,7 +143,7 @@ func GetById(t *testing.T) {
 
 func Delete(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9090"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
