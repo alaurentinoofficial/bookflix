@@ -6,11 +6,11 @@ exports.Authenticate = (req, res, next) => {
     const token = authHeader.split(' ')[1] || authHeader;
 
     if (token == null)
-        return res.sendStatus(401).send(grpcCode.Unauthenticated);
+        return res.status(401).json(grpcCode.Unauthenticated);
 
     jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
         if (err)
-            return res.sendStatus(401).send(grpcCode.Unauthenticated);
+            return res.status(401).json(grpcCode.Unauthenticated);
 
         req.userId = user.id;
         next();

@@ -33,6 +33,9 @@ exports.Router = app => {
         .get(UrlBookValidation, UrlReviewValidation, ReviewController.getById)
         .delete(Authenticate, UrlReviewValidation, UrlBookValidation, ReviewController.delete);
     
+    app.route('/account')
+        .get(Authenticate, AccountController.getById);
+
     app.route('/account/review')
         .get(Authenticate, ReviewController.getByAccountId);
 

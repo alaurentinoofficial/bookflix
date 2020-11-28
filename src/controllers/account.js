@@ -28,4 +28,13 @@ export class AccountController {
             res.json(result)
         })
     }
+
+    static getById (req, res) {
+        AccountService.GetById({id: req.userId}, (err, user) => {
+            if (err)
+                return res.json(RPCtoError(err));
+            
+            res.json(user);
+        });
+    }
 }
