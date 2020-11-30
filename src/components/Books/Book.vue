@@ -10,7 +10,7 @@
       <div class="book-rate d-flex flex-column">
         <div>
           <em class="fa fa-star book-rate-star"></em>
-          <span>{{ bookRate }}</span>
+          <span>{{ bookRate.toFixed(2) }}</span>
         </div>
         <span class="book-title">{{ bookTitle }}</span>
       </div>
