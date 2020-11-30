@@ -34,14 +34,14 @@
           <div class="carousel-item">
             <img
               class="banner"
-              src="@/assets/bannerImage.jpg"
+              src="@/assets/bannerImage2.jpg"
               alt="Banner do livro de Lancamento"
             />
           </div>
           <div class="carousel-item">
             <img
               class="banner"
-              src="@/assets/bannerImage.jpg"
+              src="@/assets/bannerImage3.png"
               alt="Banner do livro de Lancamento"
             />
           </div>
