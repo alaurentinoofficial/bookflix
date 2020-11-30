@@ -12,7 +12,7 @@
         <h1 class="book-title">{{ bookTitle }}</h1>
         <div class="mt-3">
           <em class="fa fa-star book-rate-star"></em>
-          <span>{{ bookRate }}</span><span class="review-star-span">/5</span>
+          <span>{{ bookRate.toFixed(2) }}</span><span class="review-star-span">/5</span>
         </div>
         <p class="review-details mt-3">
           {{ bookDetails }}

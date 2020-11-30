@@ -5,7 +5,7 @@
         <h4 class="book-title">{{ reviewUser }}</h4>
         <div class="mt-3">
           <em class="fa fa-star book-rate-star-comment"></em>
-          <span>{{ reviewRate }}</span><span class="review-star-span">/5</span>
+          <span>{{ reviewRate.toFixed(2) }}</span><span class="review-star-span">/5</span>
         </div>
         <p class="mt-2 review-details">{{ reviewComment }}</p>
       </div>
