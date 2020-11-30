@@ -2,14 +2,15 @@
   <div class="row mt-3 justify-content-start">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="book-header-rect"></div>
-      <h1 class="book-genre-title ml-2">{{ bookTitle }}</h1>
+      <h1 class="book-genre-title ml-2">{{ genreTitle }}</h1>
+      <router-link :to="'/booksgenre/' + genreId" class="float-right mt-1" v-if="isToSeeMore == false">ver mais</router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["bookTitle"],
+  props: ["genreTitle", "genreId", "isToSeeMore"],
   name: "GenreTitle",
 };
 </script>

@@ -7,7 +7,6 @@ export default {
         return axios.get(`${resource}`);
     },
     getById(id) {
-        console.log(id)
         return axios.get(`${resource}/${id}`);
     },
     add(payload) {

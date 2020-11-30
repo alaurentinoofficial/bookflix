@@ -3,8 +3,8 @@
     <div class="body-wrapper">
       <div class="row mb-4" style="height: 5rem"></div>
       <Carousel />
-      <template v-for="genre in genres">
-        <Genre :genre="genre" />
+      <template v-for="genre in genresMapped()">
+        <Genre :genre="genre" :isToSeeMore="false" />
       </template>
     </div>
   </div>
@@ -12,7 +12,6 @@
 
 <script>
 import { mapState } from "vuex";
-
 import Carousel from "@/components/widgets/Carousel.vue";
 import Genre from "@/components/Books/Genre.vue";
 
@@ -23,75 +22,29 @@ export default {
     Genre,
   },
   computed: {
-    ...mapState(["books"])
+    ...mapState(["genres"])
   },
   created() {
     this.$store.dispatch("getBooks", { self: this });
   },
+  methods: {
+    genresMapped() {
+      let genresMapped = JSON.parse(JSON.stringify(this.genres.map((element) => {
+        element.books = element.books.map((book) => {
+          book.categories = undefined;
+          return book;
+        });
+        return element;
+      })));
+
+      return genresMapped.map((element) => {
+        element.books = element.books.slice(0, 4);
+        return element;
+      });
+    }
+  },
   data() {
     return {
-      genres: [
-        {
-          id: 0,
-          Title: "Best Sellers",
-          books: [ 
-            {
-              "Rate": 4.8,
-              "Title": "Antifrágil Part II",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": "5718382d-1868-4594-94c9-0fc550b1dbd0"
-            },
-            {
-              "Rate": 4.7,
-              "Title": "Antifrágil Part I",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": 1
-            },
-            {
-              "Rate": 4.5,
-              "Title": "Antifrágil",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": 2
-            },
-            {
-              "Rate": 4.2,
-              "Title": "Antifrágil",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": 3
-            }
-          ]
-        },
-        {
-          id: 1,
-          Title: "Horror",
-          books: [ 
-            {
-              "Rate": 4.8,
-              "Title": "Antifrágil Part II",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": 0
-            },
-            {
-              "Rate": 4.7,
-              "Title": "Antifrágil Part I",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": 1
-            },
-            {
-              "Rate": 4.5,
-              "Title": "Antifrágil",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": 2
-            },
-            {
-              "Rate": 4.2,
-              "Title": "Antifrágil",
-              "ImageUrl": "https://trello-attachments.s3.amazonaws.com/5fab02b43fe0e3846cc6d2a8/5fb55d0810c9400ce41597c3/24eddd7f878b5e59ef417e80419546d6/bookImage1.jpg",
-              "id": 3
-            }
-          ]
-        }
-      ]
     }
   }
 };

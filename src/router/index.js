@@ -22,6 +22,15 @@ const routes = [
     }
   },
   {
+    path: '/booksgenre/:genreId',
+    name: 'BooksGenre',
+    component: () => { 
+      store.state.logginState = true;
+      return import('../views/BooksGenre.vue')
+    },
+    props: true
+  },
+  {
     path: '/review/:id',
     name: 'Review',
     component: () => { 

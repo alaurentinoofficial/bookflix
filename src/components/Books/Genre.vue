@@ -1,9 +1,9 @@
 <template>
   <div id="body-genre">
-    <GenreTitle :bookTitle="genre.Title" />
+    <GenreTitle :genreTitle="genre.name" :genreId="genre.id" :isToSeeMore="isToSeeMore" />
     <div class="row justify-content-between">
       <template v-for="book in genre.books">
-        <Book :bookRate="book.Rate" :bookTitle="book.Title" :bookIdUrl="book.id" :bookImageUrl="book.ImageUrl" />
+        <Book :bookRate="book.rating" :bookTitle="book.title" :bookIdUrl="book.id" :bookImageUrl="book.image_url" />
       </template>
     </div>
   </div>
@@ -14,7 +14,7 @@ import GenreTitle from "@/components/Books/GenreTitle.vue";
 import Book from "@/components/Books/Book.vue";
 
 export default {
-  props: ["genre"],
+  props: ["genre", "isToSeeMore"],
   name: "Genre",
   components: {
     GenreTitle,

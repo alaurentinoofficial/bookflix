@@ -47,15 +47,12 @@ export default {
       this.$store.dispatch("addReview", { 
         self: this, 
         review: {
-          Body: this.reviewComment,
-          body: this.reviewComment,
-          Rating: this.ratingReview,
-          BookId: this.bookId,
-          rating: this.ratingReview,
-          User: "Teste"
+          resume: this.reviewComment,
+          rating: this.starToReview,
+          book_id: this.bookId,
+          user_name: "Teste"
         }
       });
-      console.log(this.reviewComment)
     }
   }
 };

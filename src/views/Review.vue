@@ -1,6 +1,6 @@
 <template>
   <div id="content-wrapper" class="d-flex flex-column">
-    <div class="body-wrapper">
+    <div class="body-wrapper" v-if="bookToReview != null && typeof(bookToReview) != 'undefined' ">
       <div class="row mb-4" style="height: 5rem"></div>
       <BookDetails :bookTitle="bookToReview.title" :bookImageUrl="book.bookImageUrl" :bookRate="bookToReview.rating" :bookDetails="bookToReview.resume" />
       <ReviewForm :bookId="id" />
@@ -26,16 +26,11 @@ export default {
   },
   computed: mapState({
     bookToReview: state => state.bookToReview.body,
-    reviewList: state => state.reviews.body
+    reviewList: state => state.reviews
   }),
   created() {
-    this.$store.dispatch("getBookById", { self: this, id: this.id });
     this.$store.dispatch("getReviewsByBookId", { self: this, bookId: this.id });
-  },
-  methods: {
-    showData() {
-      console.log(this.bookToReview)
-    }
+    this.$store.dispatch("getBookById", { self: this, id: this.id });
   },
   data() {
     return {
