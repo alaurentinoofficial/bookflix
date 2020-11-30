@@ -3,7 +3,7 @@
     <div class="book-details-content mt-3 ml-3">
       <div class="mt-3">
         <img
-          src="@/assets/userImage.jpg"
+          :src="imageUrl"
           alt="Imagem do usuário"
           class="img-profile-comment rounded-circle mr-3 mb-1 ml-3 review-photo"
         />
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: ["reviewUser", "reviewRate", "reviewComment" ],
+  props: ["reviewUser", "reviewRate", "reviewComment", "imageUrl" ],
   name: "Review"
 };
 </script>

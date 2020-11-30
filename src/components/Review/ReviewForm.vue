@@ -6,11 +6,18 @@
           <Star :rating="ratingReview" />
         </div>
         <div class="form-group mt-4 ml-auto mr-auto" style="width: 80%">
+          <input class="form-control review-textarea" type="text" placeholder="Nome do usuário" v-on:focusout="userName = $event.target.value">
+          <div class="form-group mt-2">
+            <label for="exampleFormControlFile1">Imagem do Usuário</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1" v-on:change="inputFile">
+          </div>
+
           <textarea
-            class="form-control review-textarea"
+            class="form-control review-textarea mt-3"
             id="exampleFormControlTextarea1"
             rows="4"
             v-on:focusout="reviewComment = $event.target.value"
+            placeholder="Escreva sua crítica"
           ></textarea>
           <div class="col-md-12 text-center">
             <button type="submit" class="btn btn-primary mt-3 review-button" v-on:click="SendReview">
@@ -36,21 +43,27 @@ export default {
   data() {
     return {
       reviewComment: "",
-      ratingReview: 0
+      ratingReview: 0,
+      imageUserUrl: "",
+      userName: ""
     }
   },
   computed: {
     ...mapState(["starToReview"])
   },
-  methods: {
+  methods: {                                                                          
+    inputFile(event) {
+      this.imageUserUrl = window.URL.createObjectURL(event.target.files[0]);
+    },
     SendReview() {
-      this.$store.dispatch("addReview", { 
+      this.$store.dispatch("addReview", {
         self: this, 
         review: {
           resume: this.reviewComment,
           rating: this.starToReview,
           book_id: this.bookId,
-          user_name: "Teste"
+          user_name: this.userName,
+          image_url: this.imageUserUrl
         }
       });
     }

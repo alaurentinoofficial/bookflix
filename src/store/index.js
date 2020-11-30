@@ -54,7 +54,8 @@ export default new Vuex.Store({
     },
     loadBookToReview: (state, res) => {
       const { data } = res;
-      state.bookToReview = data
+      state.bookToReview = data.body
+      console.log(state.bookToReview);
     },
     updateStarToReview: (state, rating) => {
       state.starToReview = rating;
