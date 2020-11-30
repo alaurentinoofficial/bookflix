@@ -36,7 +36,7 @@ export default new Vuex.Store({
     loadBooks: (state, res) => {
       const { data } = res;
 
-      data.body.books.forEach(element => {
+      data.body.forEach(element => {
         state.genres.push(...element.categories);
         state.genres = state.genres.filter((value, index, self) => {
             return self.indexOf(self.find((genre) => genre.id == value.id)) === index;
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       });
 
       state.genres.map(function(element) {
-        element.books = data.body.books.filter(e => e.categories.find(category => category.id == element.id) != null);
+        element.books = data.body.filter(e => e.categories.find(category => category.id == element.id) != null);
         return element;
       });
     },
@@ -55,14 +55,13 @@ export default new Vuex.Store({
     loadBookToReview: (state, res) => {
       const { data } = res;
       state.bookToReview = data.body
-      console.log(state.bookToReview);
     },
     updateStarToReview: (state, rating) => {
       state.starToReview = rating;
     },
     addReviewToBook: (state, rating) => {
       state.reviews.push(rating.review);
-      ReviewRepository.add(rating.review, rating.review.BookId);
+      ReviewRepository.add(rating.review, rating.review.book_id);
     },
   }
 })

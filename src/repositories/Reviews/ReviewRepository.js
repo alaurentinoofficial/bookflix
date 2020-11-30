@@ -12,7 +12,7 @@ export default {
         return axios.get(`${resource.replace('{bookid}', bookId)}`);
     },
     add(payload, bookId) {
-        return axios.post(`/auth${resource.replace('{bookid}', bookId)}`, payload, { headers: authHeader() });
+        return axios.post(`${resource.replace('{bookid}', bookId)}`, payload, { headers: authHeader() });
     },
     update(payload, id) {
         return axios.put(`${resource}/${id}`, payload);
