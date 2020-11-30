@@ -24,11 +24,17 @@
           placeholder="Search for book, magazine..."
           aria-label="Search"
           aria-describedby="basic-addon2"
+          v-on:input="searchText = $event.target.value"
         />
         <div class="input-group-append">
-          <button class="btn btn-dark" type="button">
+          <router-link
+            :to="'/search/' + searchText"
+            type="button"
+            class="btn btn-dark"
+            tag="button"
+          >
             <em class="fa fa-search fa-sm"></em>
-          </button>
+          </router-link>
         </div>
       </div>
     </form>
@@ -122,6 +128,11 @@
 <script>
 export default {
   name: "Topbar",
+  data() {
+    return {
+      searchText: ""
+    }
+  }
 };
 </script>
 

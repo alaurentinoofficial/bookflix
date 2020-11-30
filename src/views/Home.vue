@@ -4,7 +4,7 @@
       <div class="row mb-4" style="height: 5rem"></div>
       <Carousel />
       <template v-for="genre in genresMapped()">
-        <Genre :genre="genre" :isToSeeMore="false" />
+        <Genre :genre="genre" :isToSeeMore="false" :isToSearch="false" />
       </template>
     </div>
   </div>

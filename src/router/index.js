@@ -22,6 +22,15 @@ const routes = [
     }
   },
   {
+    path: '/search/:searchText',
+    name: 'BooksGenre',
+    component: () => { 
+      store.state.logginState = true;
+      return import('../views/Search.vue')
+    },
+    props: true
+  },
+  {
     path: '/booksgenre/:genreId',
     name: 'BooksGenre',
     component: () => { 

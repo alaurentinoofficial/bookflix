@@ -7,11 +7,6 @@
         </div>
         <div class="form-group mt-4 ml-auto mr-auto" style="width: 80%">
           <input class="form-control review-textarea" type="text" placeholder="Nome do usuário" v-on:focusout="userName = $event.target.value">
-          <div class="form-group mt-2">
-            <label for="exampleFormControlFile1">Imagem do Usuário</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1" v-on:change="inputFile">
-          </div>
-
           <textarea
             class="form-control review-textarea mt-3"
             id="exampleFormControlTextarea1"
@@ -44,7 +39,6 @@ export default {
     return {
       reviewComment: "",
       ratingReview: 0,
-      imageUserUrl: "",
       userName: ""
     }
   },
@@ -63,7 +57,6 @@ export default {
           rating: this.starToReview,
           book_id: this.bookId,
           user_name: this.userName,
-          image_url: this.imageUserUrl
         }
       });
     }
