@@ -34,9 +34,41 @@ spec:
         image: gcr.io/PROJECT_ID/IMAGE:TAG
         ports:
         - containerPort: 9000
-          name: ng-auth
+          name: ng-auth-service
         resources:
           requests:
             cpu: 100m
           limits:
             cpu: 100m
+      - name: ng-auth-postgres
+        image: "postgres:13.0"
+        env:
+          - name: POSTGRES_USER
+            value: ngbook
+          - name: POSTGRES_PASSWORD
+            value: fd9832quASDFJKAjasdf923j
+          - name: POSTGRES_DB
+            value: ngbook
+        ports:
+        - containerPort: 5432
+          name: ng-auth-pg
+        volumeMounts:
+        - name: ng-auth-postgres-storage
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+      volumes:
+        - name: ng-auth-postgres-storage
+          persistentVolumeClaim:
+            claimName: ng-auth-postgres-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ng-auth-postgres-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests:
+      storage: 5Gi
