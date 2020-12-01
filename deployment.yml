@@ -34,14 +34,14 @@ spec:
         image: gcr.io/PROJECT_ID/IMAGE:TAG
         env:
           - name: ACCOUNT_SERVICE
-            value: ng-auth-service
+            value: ng-auth-service:80
           - name: BOOK_SERVICE
-            value: ng-book-service
+            value: ng-book-service:80
           - name: CATALOG_SERVICE
-            value: ng-catalog-service
+            value: ng-catalog-service:80
         ports:
         - containerPort: 8080
-          name: ng-catalog-port
+          name: ng-gateway-api
         resources:
           requests:
             cpu: 100m
