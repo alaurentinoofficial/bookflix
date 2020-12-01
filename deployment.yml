@@ -47,7 +47,7 @@ spec:
             value: "5432"
         ports:
         - containerPort: 9000
-          name: ng-catalog-service
+          name: ng-catalog-port
         resources:
           requests:
             cpu: 100m
