@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ng-catalog-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9000
+  selector:
+    app: ng-catalog-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ng-catalog-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ng-catalog-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: ng-catalog-service
+    spec:
+      containers:
+      - name: ng-catalog-service
+        image: gcr.io/PROJECT_ID/IMAGE:TAG
+        env:
+          - name: PORT
+            value: "9000"
+          - name: DB_USER
+            value: ngbook
+          - name: DB_PASS
+            value: fd9832quASDFJKAjasdf923j
+          - name: DB_NAME
+            value: ngbook
+          - name: DB_HOST
+            value: localhost
+          - name: DB_PORT
+            value: "5432"
+        ports:
+        - containerPort: 9000
+          name: ng-catalog-service
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 100m
+      - name: ng-catalog-postgres
+        image: "postgres:13.0"
+        env:
+          - name: POSTGRES_USER
+            value: ngbook
+          - name: POSTGRES_PASSWORD
+            value: fd9832quASDFJKAjasdf923j
+          - name: POSTGRES_DB
+            value: ngbook
+        ports:
+        - containerPort: 5432
+          name: ng-catalog-pg
+        volumeMounts:
+        - name: ng-catalog-postgres-storage
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+      volumes:
+        - name: ng-catalog-postgres-storage
+          persistentVolumeClaim:
+            claimName: ng-catalog-postgres-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ng-catalog-postgres-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

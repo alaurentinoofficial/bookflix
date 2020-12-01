@@ -11,7 +11,7 @@ import (
 type Catalog struct {
 	Id        uuid.UUID     `json:"id"`
 	Name      string        `json:"name"`
-	Items     []CatalogItem `json:"items"`
+	Items     []CatalogItem `json:"items" gorm:"preload:true"`
 	CreatedAt time.Time     `json:"created_at,omitempty"`
 	UpdatedAt time.Time     `json:"update_at,omitempty"`
 }

@@ -38,8 +38,9 @@ func Init() {
 
 	db = conn
 
-	db.DropTableIfExists(&models.Catalog{}, &models.CatalogItem{}, &models.Banner{}, &models.BannerItem{})
+	// db.DropTableIfExists(&models.CatalogItem{}, &models.Catalog{}, &models.Banner{}, &models.BannerItem{})
 	db.AutoMigrate(&models.Catalog{}, &models.CatalogItem{}, &models.Banner{}, &models.BannerItem{})
+	db.Table("catalog_items").AddForeignKey("catalog_id", "catalogs(id)", "CASCADE", "CASCADE")
 }
 
 func Get() *gorm.DB {

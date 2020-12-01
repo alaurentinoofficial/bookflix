@@ -8,10 +8,11 @@ import (
 )
 
 type CatalogItem struct {
-	Id       uuid.UUID `json:"id"`
-	Name     string    `json:"Name"`
-	ItemId   uuid.UUID `json:"item_id"`
-	ImageUrl string    `json:"image_url,omitempty"`
+	Id        uuid.UUID `json:"id"`
+	Name      string    `json:"Name"`
+	CatalogId uuid.UUID `json:"catalog_id"`
+	ItemId    uuid.UUID `json:"item_id"`
+	ImageUrl  string    `json:"image_url,omitempty"`
 }
 
 func (this *CatalogItem) BeforeCreate(scope *gorm.Scope) error {

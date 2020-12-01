@@ -10,7 +10,7 @@ type catalogRepository struct{}
 func (this *catalogRepository) Get() (*[]models.Catalog, error) {
 	result := []models.Catalog{}
 
-	if err := db.Get().Preload("CatalogItems").Find(&result).Error; err != nil {
+	if err := db.Get().Preload("Items").Find(&result).Error; err != nil {
 		return nil, err
 	}
 
@@ -20,7 +20,7 @@ func (this *catalogRepository) Get() (*[]models.Catalog, error) {
 func (this *catalogRepository) GetById(id string) (*models.Catalog, error) {
 	result := models.Catalog{}
 
-	if err := db.Get().Preload("CatalogItems").Where("id = ?", id).First(&result).Error; err != nil {
+	if err := db.Get().Preload("Items").Where("id = ?", id).First(&result).Error; err != nil {
 		return nil, err
 	}
 
@@ -35,7 +35,7 @@ func (this *catalogRepository) Insert(catalog models.Catalog) (*models.Catalog, 
 		return nil, err
 	}
 
-	if err := db.Get().Model(&catalog).Association("CatalogItems").Replace(items).Error; err != nil {
+	if err := db.Get().Model(&catalog).Association("items").Replace(items).Error; err != nil {
 		this.Delete(catalog.Id.String())
 		return nil, err
 	}
