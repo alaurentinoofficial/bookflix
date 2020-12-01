@@ -14,7 +14,6 @@ kind: Deployment
 metadata:
   name: postgres-auth
 spec:
-  serviceName: "postgres"
   replicas: 1
   selector:
     matchLabels:
