@@ -111,6 +111,8 @@ func (s *ReviewService) Insert(ctx context.Context, in *proto.Review) (*proto.St
 		return nil, err
 	}
 
+	repositories.Review.RecalculateRating(review.BookId.String())
+
 	return &proto.Status{Code: 0, Message: "Ok"}, nil
 }
 

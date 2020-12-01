@@ -3,9 +3,30 @@ package repositories
 import (
 	"ng-book-service/db"
 	"ng-book-service/models"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 type reviewRepository struct{}
+
+func (this *reviewRepository) RecalculateRating(bookId string) error {
+	results, _ := Review.GetByBookId(bookId)
+
+	var rating_sum float32 = 0.0
+
+	for _, r := range *results {
+		rating_sum += r.Rating
+	}
+
+	uu, _ := uuid.FromString(bookId)
+
+	Book.Update(models.Book{
+		Id:     uu,
+		Rating: rating_sum / float32(len(*results)),
+	})
+
+	return nil
+}
 
 func (this *reviewRepository) Get() (*[]models.Review, error) {
 	result := []models.Review{}

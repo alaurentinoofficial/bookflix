@@ -28,19 +28,19 @@ func TestIntegrationMain(t *testing.T) {
 	t.Run("book get by id", BookGetById)
 
 	t.Run("review insert", ReviewInsert)
-	t.Run("review get", ReviewGet)
-	t.Run("review get by account id", ReviewGetByAccountId)
-	t.Run("review delete", ReviewDelete)
-	t.Run("review get by book id", ReviewGetByBookId)
-	t.Run("review delete total", ReviewDeleteTotal)
+	// t.Run("review get", ReviewGet)
+	// t.Run("review get by account id", ReviewGetByAccountId)
+	// t.Run("review delete", ReviewDelete)
+	// t.Run("review get by book id", ReviewGetByBookId)
+	// t.Run("review delete total", ReviewDeleteTotal)
 
-	t.Run("book delete", BookDelete)
-	t.Run("category delete", CategoryDelete)
+	// t.Run("book delete", BookDelete)
+	// t.Run("category delete", CategoryDelete)
 }
 
 func CategoryInsert(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -65,7 +65,7 @@ func CategoryInsert(t *testing.T) {
 
 func CategoryGet(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -88,7 +88,7 @@ func CategoryGet(t *testing.T) {
 
 func CategoryUpdate(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -114,7 +114,7 @@ func CategoryUpdate(t *testing.T) {
 
 func CategoryGetById(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -135,7 +135,7 @@ func CategoryGetById(t *testing.T) {
 
 func CategoryDelete(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -156,7 +156,7 @@ func CategoryDelete(t *testing.T) {
 
 func BookInsert(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -190,7 +190,7 @@ func BookInsert(t *testing.T) {
 
 func BookGet(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -213,7 +213,7 @@ func BookGet(t *testing.T) {
 
 func BookUpdate(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -236,7 +236,7 @@ func BookUpdate(t *testing.T) {
 
 func BookGetById(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -257,7 +257,7 @@ func BookGetById(t *testing.T) {
 
 func BookDelete(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -278,7 +278,7 @@ func BookDelete(t *testing.T) {
 
 func ReviewInsert(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -322,7 +322,7 @@ func ReviewInsert(t *testing.T) {
 
 func ReviewGet(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -364,7 +364,7 @@ func ReviewGet(t *testing.T) {
 
 func ReviewGetById(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -394,7 +394,7 @@ func ReviewGetById(t *testing.T) {
 
 func ReviewGetByAccountId(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -423,7 +423,7 @@ func ReviewGetByAccountId(t *testing.T) {
 
 func ReviewDelete(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -432,7 +432,7 @@ func ReviewDelete(t *testing.T) {
 
 	c := proto.NewReviewServiceClient(conn)
 
-	response, err := c.Delete(context.Background(), &proto.Id{Id: reviews.Reviews[0].Id})
+	response, err := c.Delete(context.Background(), &proto.IdAccountId{Id: reviews.Reviews[0].Id})
 	if err != nil {
 		t.Errorf("Error to connect and get data")
 	}
@@ -443,7 +443,7 @@ func ReviewDelete(t *testing.T) {
 }
 
 func ReviewGetByBookId(t *testing.T) {
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -486,7 +486,7 @@ func ReviewGetByBookId(t *testing.T) {
 
 func ReviewDeleteTotal(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(fmt.Sprintf(":9000"), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf(":9010"), grpc.WithInsecure())
 
 	if err != nil {
 		t.Errorf("did not connect: %s", err)
@@ -496,7 +496,7 @@ func ReviewDeleteTotal(t *testing.T) {
 	c := proto.NewReviewServiceClient(conn)
 
 	for _, review := range reviews.Reviews {
-		response, err := c.Delete(context.Background(), &proto.Id{Id: review.Id})
+		response, err := c.Delete(context.Background(), &proto.IdAccountId{Id: review.Id})
 		if err != nil {
 			t.Errorf("Error to connect and get data")
 		}
