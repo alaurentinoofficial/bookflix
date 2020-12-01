@@ -6,7 +6,7 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 9000
+      targetPort: 8080
   selector:
     app: ng-gateway-api
 ---
@@ -40,41 +40,10 @@ spec:
           - name: CATALOG_SERVICE
             value: ng-catalog-service
         ports:
-        - containerPort: 9000
+        - containerPort: 8080
           name: ng-catalog-port
         resources:
           requests:
             cpu: 100m
           limits:
             cpu: 100m
-      - name: ng-catalog-postgres
-        image: "postgres:13.0"
-        env:
-          - name: POSTGRES_USER
-            value: ngbook
-          - name: POSTGRES_PASSWORD
-            value: fd9832quASDFJKAjasdf923j
-          - name: POSTGRES_DB
-            value: ngbook
-        ports:
-        - containerPort: 5432
-          name: ng-catalog-pg
-        volumeMounts:
-        - name: ng-catalog-postgres-storage
-          mountPath: /var/lib/postgresql/data
-          subPath: postgres
-      volumes:
-        - name: ng-catalog-postgres-storage
-          persistentVolumeClaim:
-            claimName: ng-catalog-postgres-pv-claim
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ng-catalog-postgres-pv-claim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
