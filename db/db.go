@@ -38,7 +38,7 @@ func Init() {
 
 	db = conn
 
-	db.DropTableIfExists(&models.Account{})
+	// db.DropTableIfExists(&models.Account{})
 	db.AutoMigrate(&models.Account{})
 }
 

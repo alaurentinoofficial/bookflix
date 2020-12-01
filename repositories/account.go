@@ -15,7 +15,7 @@ func (this *accountRepository) Auth(email string, password string) (*models.Acco
 	result := models.Account{}
 
 	if err := db.Get().Where("email = ?", email).First(&result).Error; err != nil {
-		return nil, err
+		return nil, status.Error(codes.InvalidArgument, "Email or Password invalid!")
 	}
 
 	errPwd := bcrypt.CompareHashAndPassword([]byte(result.Password), []byte(password))
@@ -40,7 +40,7 @@ func (this *accountRepository) GetById(id string) (*models.Account, error) {
 	result := models.Account{}
 
 	if err := db.Get().Where("id = ?", id).First(&result).Error; err != nil {
-		return nil, err
+		return nil, status.Error(codes.InvalidArgument, "Not found user")
 	}
 
 	return &result, nil
