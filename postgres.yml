@@ -35,7 +35,7 @@ spec:
             value: ngbook
         ports:
         - containerPort: 5432
-          name: ng-auth-postgres
+          name: ng-auth-pg
         volumeMounts:
         - name: ng-auth-postgres-storage
           mountPath: /var/lib/postgresql/data
