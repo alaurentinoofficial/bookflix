@@ -6,7 +6,8 @@ exports.InsertBookValidation = [
     body('resume').notEmpty().isString().isLength({ min: 5 }),
     body('image_url').notEmpty().isString().isLength({ min: 5 }).isURL(),
     body('categories').notEmpty().isArray({ min: 1 }),
-    body('categories.*.name').notEmpty().isString().isLength({ min: 3 }),
+    body('categories.*.id').optional().isString().isLength({ min: 3 }),
+    body('categories.*.name').optional().isString().isLength({ min: 3 }),
 ]
 
 exports.UpdateBookValidation = [
@@ -15,6 +16,7 @@ exports.UpdateBookValidation = [
     body('resume').optional().isString().isLength({ min: 5 }),
     body('image_url').optional().isString().isLength({ min: 5 }).isURL(),
     body('categories').optional().isArray({ min: 1 }),
+    body('categories.*.id').optional().isString().isLength({ min: 3 }),
     body('categories.*.name').optional().isString().isLength({ min: 3 }),
 ]
 
