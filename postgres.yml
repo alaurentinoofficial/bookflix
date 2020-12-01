@@ -47,7 +47,7 @@ spec:
             claimName: ng-auth-postgres-pv-claim
 ---
 apiVersion: v1
-kind: volumeClaim
+kind: PersistentVolumeClaim
 metadata:
   name: ng-auth-postgres-pv-claim
 spec:
