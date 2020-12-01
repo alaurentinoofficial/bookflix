@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: ng-auth-service
 spec:
-  type: LoadBalancer
+  type: CloudIP
   ports:
     - port: 80
       targetPort: 9000
@@ -32,6 +32,19 @@ spec:
       containers:
       - name: ng-auth-service
         image: gcr.io/PROJECT_ID/IMAGE:TAG
+        env:
+          - name: PORT
+            value: 9000
+          - name: DB_USER
+            value: ngbook
+          - name: DB_PASS
+            value: fd9832quASDFJKAjasdf923j
+          - name: DB_NAME
+            value: ngbook
+          - name: DB_HOST
+            value: localhost
+          - name: DB_PORT
+            value: 5432
         ports:
         - containerPort: 9000
           name: ng-auth-service
