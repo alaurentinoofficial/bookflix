@@ -34,6 +34,7 @@ spec:
         image: gcr.io/PROJECT_ID/IMAGE:TAG
         ports:
         - containerPort: 9000
+          name: ng-auth
         resources:
           requests:
             cpu: 100m
