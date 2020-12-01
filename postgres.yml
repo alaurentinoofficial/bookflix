@@ -9,7 +9,7 @@ spec:
   selector:
     app: ng-auth-postgres
 ---
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-auth
