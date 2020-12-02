@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseDomain = "http://api.bookflix.laurentino.me";
+const baseDomain = "https://api.bookflix.laurentino.me";
 const baseURL = `${baseDomain}`;
 
 
