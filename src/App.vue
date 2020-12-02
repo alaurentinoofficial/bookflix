@@ -2,19 +2,17 @@
   <div id="app">
     <Topbar v-if="logginState" />
     <router-view id="content-wrapper" class="d-flex flex-column" />
-    <Footer v-if="logginState" />
   </div>
 </template>
 
 <script>
 import Topbar from "@/components/Template/Topbar.vue";
-import Footer from "@/components/Template/Footer.vue";
+// import Footer from "@/components/Template/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Topbar,
-    Footer,
   },
   computed: {
     logginState() { 
@@ -24,10 +22,18 @@ export default {
 };
 </script>
 <style>
+#app {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 #content-wrapper {
   background-color: #000000;
-  height: 100vh;
+  display: block;
+  padding-bottom: 100px;
+  /* height: 100vh; */
+  min-height: 100vh;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: unset;
 }
 </style>

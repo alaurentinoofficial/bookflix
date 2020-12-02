@@ -21,6 +21,7 @@ export default {
   background-color: #232323;
   color: white;
   font-weight: bold;
+  /* display: block; */
 }
 
 .footer-logo {

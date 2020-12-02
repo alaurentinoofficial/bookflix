@@ -38,9 +38,7 @@ export default {
 <style scoped>
 #content-wrapper {
   background-color: #000000;
-  height: 100vh;
   width: 100%;
-  overflow-x: hidden;
 }
 
 .body-wrapper {

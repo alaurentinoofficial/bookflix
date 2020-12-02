@@ -80,12 +80,13 @@ export default {
 <style scoped>
 #home {
   background-color: #000000;
-  height: 100vh;
+  /* min-height: 100vh; */
   width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .body-wrapper {
+  min-height: calc(100vh - 21.2vh);
   width: 50%;
   margin-left: auto;
   margin-right: auto;
