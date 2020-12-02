@@ -25,7 +25,7 @@ func (account *Account) BeforeCreate(scope *gorm.Scope) error {
 
 	scope.SetColumn("CreatedAt", time.Now())
 	scope.SetColumn("UpdatedAt", nil)
-	scope.SetColumn("Profile", "NORMAL")
+	scope.SetColumn("Profile", "ADMIN")
 
 	scope.SetColumn("Password", utils.HashPassword(account.Password))
 
