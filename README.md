@@ -1,24 +1,9 @@
-# mobili
+# Bookflix
 
-## Project setup
-```
-npm install
-```
+Accesse the web application [here](https://thebookflix.herokuapp.com/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![](./assets/Screenshot.png)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+<br>
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+---
