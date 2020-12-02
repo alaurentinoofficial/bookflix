@@ -1,6 +1,6 @@
 # Bookflix
 
-Acesse o MPV neste [link](https://thebookflix.herokuapp.com/).
+Acesse o MVP neste [link](https://thebookflix.herokuapp.com/).
 
 Bookflix é um site de resenhas e avaliações de livros. A ideia surgiou logo após um de nossos desenvolvedores mostrar algumas pesquisas, nas quais mostravem a falta do habito de leitura dos cidadões brasileiros. Apartir disso decidimos criar uma plataforma de resenhas de livros e de avaliações para que as pessoas pudessem explorar um universo de novos livros.
 
