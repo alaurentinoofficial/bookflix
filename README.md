@@ -34,4 +34,4 @@ O cloud provider utilizado foi o google cloud devido a facilidade de deploy de p
 
 Por utilizarmos multiplos serviços, foi necessário a criação de um continous integrations/continous delivery para que a cada nova entrega o deploy seja automátio para produção. Neste caso há um pipeline para cada micro-serviço que já faz o processo de build, de cadastro das imagens no GCR e deploy no GKE.
 
-![](./Assets/CI.png)
+![](./assets/CI.png)
