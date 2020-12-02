@@ -6,7 +6,7 @@ app.use(express.static("dist"))
 
 // define the first route
 app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname  + '/dist/index.html'));
+    res.sendFile(__dirname + '/dist/index.html');
 });
 
 // start the server listening for requests
